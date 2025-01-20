@@ -1,12 +1,14 @@
 import React from 'react'
 import '../pages/mainbg.css'
-
+import truckbg from '../pages/truckbg.png'
+import pickuptruck from '../pages/pickuptruck.png'
+import accontainer from '../pages/accontainer.png'
 const HomePage = () => {
     return (
         <div>
             <div id='mainbg' className='relative bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] h-96'>
                 <div className='max-w-8xl mx-auto text-start p-8'>
-                    <h1 className='text-[3rem] font-extrabold text-[#0A2540] hover:text-[#FF4500] duration-150'>
+                    <h1 className='text-[3rem] font-extrabold text-[#0A2540] hover:text-[#60301f] duration-150'>
                         Reliable Bulk Milk Transportation
                     </h1>
                     <p className='mt-4 text-lg font-semibold text-[#F4F4F4]'>
@@ -18,7 +20,7 @@ const HomePage = () => {
                 </div>
             </div>
 
-            <div id="service" className='py-16 bg-white text-[#374151]'>
+            <div id="service" className='py-16 bg- text-[#374151]'>
                 <div className='max-w-7xl mx-auto text-center'>
                     <h2 className="text-[#1E293B] font-poppins text-3xl font-bold">Our Services</h2>
                     <p className='text-lg text-[#374151] mt-2'>We provide a range of milk transportation solutions.</p>
@@ -27,14 +29,18 @@ const HomePage = () => {
                     <div className='p-6 border rounded-lg shadow-lg hover:shadow-2xl'>
                         <h3 className='text-xl font-semibold text-[#0070F3]'>16ft & 19ft Trucks</h3>
                         <p className='text-[#374151] mt-2'>For larger scale milk product transportation with temperature control</p>
+                        <img className='p-5' src={truckbg} alt="" />
                     </div>
                     <div className='p-6 border rounded-lg shadow-lg hover:shadow-2xl'>
                         <h3 className='text-xl font-semibold text-[#0070F3]'>Pickup Trucks</h3>
                         <p className='text-[#374151]'>Perfect for smaller bulk deliveries and quick transport.</p>
+                        <img className='mt-6' src={pickuptruck} alt="" />
+
                     </div>
                     <div className='p-6 border rounded-lg shadow-lg hover:shadow-2xl'>
                         <h3 className='text-xl font-semibold text-[#0070F3]'>Cold Chain Logistics</h3>
                         <p className='text-[#374151] mt-2'>Ensuring the freshness of milk products during transit</p>
+                        <img className='mt-8' src={accontainer} alt="" />
                     </div>
                 </div>
             </div>

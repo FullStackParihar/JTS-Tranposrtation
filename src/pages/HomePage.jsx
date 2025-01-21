@@ -8,7 +8,7 @@ const HomePage = () => {
         <div>
             <div id='mainbg' className='relative flex items-center justify-start bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] h-[34rem]'>
                 <div className='text-start absolute top-10 p-12 '>
-                    <h1 className='text-[2.5rem] sm:text-[1rem] font-extrabold text-[#0A2540] hover:text-[#60301f] duration-150'>
+                    <h1 className='text-[2.5rem] sm:text-[1.5rem] font-extrabold text-[#0A2540] hover:text-[#60301f] duration-150'>
                         Reliable Bulk Milk Transportation
                     </h1>
                     <p className='mt-4 text-lg font-semibold text-[#212121]'>
@@ -16,10 +16,11 @@ const HomePage = () => {
                     </p>
 
                 </div>
-                <div id="getbutton " className=' absolute bottom-6 left-[45%] '>
+                <div id="getbutton " className='absolute w-full bottom-4 flex justify-center'>
                     <button className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] hover:bg-green-700 mt-4 text-white font-roboto px-6 py-3 rounded-lg">
                         Get Service
-                    </button></div>
+                    </button>
+                </div>
             </div>
 
             <div id="service" className='py-16 bg- text-[#374151]'>

@@ -11,10 +11,10 @@ const HomePage = () => {
                     <h1 className='text-[3rem] font-extrabold text-[#0A2540] hover:text-[#60301f] duration-150'>
                         Reliable Bulk Milk Transportation
                     </h1>
-                    <p className='mt-4 text-lg font-semibold text-[#F4F4F4]'>
+                    <p className='mt-4 text-lg font-semibold text-[#212121]'>
                         Delivering fresh milk products safely across cities with our cold-chain logistics
                     </p>
-                    <button className="bg-[#FF4500] hover:bg-[#E63946] mt-4 text-white px-6 py-3 rounded-lg">
+                    <button className="bg-[#6A1B9A] hover:bg-[#E63946] mt-4 text-white px-6 py-3 rounded-lg">
                         Get Service
                     </button>
                 </div>
@@ -29,18 +29,18 @@ const HomePage = () => {
                     <div className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
                         <h3 className='text-2xl font-bold  text-[#0070F3]'>16ft & 19ft Trucks</h3>
                         <p className='text-[#374151] mt-2'>For larger scale milk product transportation with temperature control</p>
-                        <img className='p-5' src={truckbg} alt="" />
+                        <img className='p-12' src={truckbg} alt="" />
                     </div>
                     <div className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
                         <h3 className='text-xl font-semibold text-[#0070F3]'>Pickup Trucks</h3>
                         <p className='text-[#374151]'>Perfect for smaller bulk deliveries and quick transport.</p>
-                        <img className='mt-6' src={pickuptruck} alt="" />
+                        <img className='mt-12' src={pickuptruck} alt="" />
 
                     </div>
                     <div className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
                         <h3 className='text-xl font-semibold text-[#0070F3]'>Cold Chain Logistics</h3>
                         <p className='text-[#374151] mt-2'>Ensuring the freshness of milk products during transit</p>
-                        <img className='mt-12 p-4' src={accontainer} alt="" />
+                        <img className='mt-20 p-6' src={accontainer} alt="" />
                     </div>
                 </div>
             </div>

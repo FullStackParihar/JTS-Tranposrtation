@@ -8,14 +8,22 @@ const HomePage = () => {
     return (
         <div>
             <div id='mainbg' className='relative flex items-center justify-start bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] h-[38rem] sm:h-[34rem] xs:h-[28rem]'>
-                <div className='text-start absolute top-10 p-8 sm:p-6 xs:p-4'>
-                    <h1 className='text-[2.5rem] sm:text-[2rem] xs:text-[1.5rem] font-extrabold text-[#0A2540] hover:text-[#60301f] duration-150'>
-                        Reliable Bulk Milk Transportation
-                    </h1>
-                    <p className='mt-4 text-lg sm:text-base xs:text-sm font-semibold text-[#212121]'>
-                        Delivering fresh milk products safely across cities with our cold-chain logistics
-                    </p>
+
+                {/* image section */}
+                <div className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 flex items-center justify-center p-8 sm:p-6 xs:p-4'>
+                    <div className='text-center'>
+                        <h1 className='text-[2rem] sm:text-[2rem] xs:text-[1.5rem] font-extrabold text-[#FFFFFF]'>
+                            Reliable Bulk Milk Transportation
+                        </h1>
+                        <p className='mt-4 text-lg sm:text-base xs:text-sm font-semibold text-[#FFFFFF]'>
+                            Delivering fresh milk products safely across cities with our cold-chain logistics
+                        </p>
+                    </div>
                 </div>
+
+
+
+
                 <div id="getbutton" className='absolute w-full bottom-4 flex justify-center'>
                     <button className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] hover:bg-green-700 mt-4 text-white font-roboto px-6 py-3 xs:px-4 xs:py-2 text-base xs:text-sm rounded-lg">
                         Get Service
@@ -47,6 +55,52 @@ const HomePage = () => {
                 </div>
             </div>
 
+            <section className="bg-[#6A1B9A] py-16 text-white text-center">
+                <h2 className="text-3xl font-bold text-[#FFFFFF]">What Our Clients Say</h2>
+                <div className="mt-8 grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div className="p-6 bg-[#F57C00] text-white rounded-lg shadow-lg">
+                        <p className="text-lg">"Excellent service and on-time deliveries! Highly recommended."</p>
+                        <p className="mt-2 font-bold text-[#212121]">- Dairy Corp Ltd.</p>
+                    </div>
+                    <div className="p-6 bg-[#F57C00] text-white rounded-lg shadow-lg">
+                        <p className="text-lg">"Their cold-chain logistics are top-notch. Fresh milk every time!"</p>
+                        <p className="mt-2 font-bold text-[#212121]">- Fresh Milk Pvt Ltd.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section className="py-16 bg-[#6A1B9A] text-white text-center">
+                <h2 className="text-3xl sm:text-4xl font-bold">Get in Touch</h2>
+                <p className="mt-4 text-lg sm:text-xl">Have any questions or need a quote? Reach out to us!</p>
+                <form className="mt-8 max-w-md sm:max-w-lg mx-auto px-4 sm:px-0">
+                    <input
+                        type="text"
+                        placeholder="Your Name"
+                        className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
+                    />
+                    <input
+                        type="email"
+                        placeholder="Your Email"
+                        className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
+                    />
+                    <textarea
+                        placeholder="Your Message"
+                        className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
+                        rows="4"
+                    ></textarea>
+                    <button
+                        type="submit"
+                        className="bg-[#F57C00] hover:bg-[#D65A00] text-white px-6 py-3 rounded-lg w-full sm:w-auto transition duration-300"
+                    >
+                        Send Message
+                    </button>
+                </form>
+            </section>
+
+
+
+
+
             <section className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] py-12 sm:py-8 xs:py-6 text-center text-white px-4">
                 <h2 className="text-3xl sm:text-2xl xs:text-xl font-bold">Ready to Transport with Us?</h2>
                 <p className="mt-4 sm:mt-2 xs:mt-1 text-lg sm:text-base xs:text-sm">Get in touch and request a quote today.</p>
@@ -54,6 +108,15 @@ const HomePage = () => {
                     Request a Quote
                 </a>
             </section>
+
+            <section className="bg-white py-16 text-center">
+                <h2 className="text-3xl font-bold text-[#6A1B9A]">About Us</h2>
+                <p className="mt-4 max-w-3xl mx-auto text-[#212121]">
+                    With 5 years of experience in bulk milk transportation, Jagdamba Transport Services ensures
+                    the safest and most efficient delivery for your dairy products.
+                </p>
+            </section>
+
 
             <footer className="bg-[#0A2540] text-[#F4F4F4] py-8 sm:py-6 xs:py-4 px-4">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row sm:flex-col xs:flex-col justify-between">

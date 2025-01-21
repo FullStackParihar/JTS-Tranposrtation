@@ -4,6 +4,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        'sm' : '640px',
+        'xs': '480px',  // Custom breakpoint for extra small screens
+      },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif'],

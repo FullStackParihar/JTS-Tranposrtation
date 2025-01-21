@@ -3,72 +3,71 @@ import '../pages/mainbg.css'
 import truckbg from '../pages/truckbg.png'
 import pickuptruck from '../pages/pickuptruck.png'
 import accontainer from '../pages/accontainer.png'
+
 const HomePage = () => {
     return (
         <div>
-            <div id='mainbg' className='relative flex items-center justify-start bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] h-[34rem]'>
-                <div className='text-start absolute top-10 p-12 '>
-                    <h1 className='text-[2.5rem] sm:text-[1.5rem] font-extrabold text-[#0A2540] hover:text-[#60301f] duration-150'>
+            <div id='mainbg' className='relative flex items-center justify-start bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] h-[38rem] sm:h-[34rem] xs:h-[28rem]'>
+                <div className='text-start absolute top-10 p-8 sm:p-6 xs:p-4'>
+                    <h1 className='text-[2.5rem] sm:text-[2rem] xs:text-[1.5rem] font-extrabold text-[#0A2540] hover:text-[#60301f] duration-150'>
                         Reliable Bulk Milk Transportation
                     </h1>
-                    <p className='mt-4 text-lg font-semibold text-[#212121]'>
+                    <p className='mt-4 text-lg sm:text-base xs:text-sm font-semibold text-[#212121]'>
                         Delivering fresh milk products safely across cities with our cold-chain logistics
                     </p>
-
                 </div>
-                <div id="getbutton " className='absolute w-full bottom-4 flex justify-center'>
-                    <button className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] hover:bg-green-700 mt-4 text-white font-roboto px-6 py-3 rounded-lg">
+                <div id="getbutton" className='absolute w-full bottom-4 flex justify-center'>
+                    <button className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] hover:bg-green-700 mt-4 text-white font-roboto px-6 py-3 xs:px-4 xs:py-2 text-base xs:text-sm rounded-lg">
                         Get Service
                     </button>
                 </div>
             </div>
 
-            <div id="service" className='py-16 bg- text-[#374151]'>
+            <div id="service" className='py-16 bg- text-[#374151] px-4 sm:px-6'>
                 <div className='max-w-7xl mx-auto text-center'>
-                    <h2 className="text-[#1E293B] font-poppins text-4xl font-bold">Our Services</h2>
-                    <p className='text-lg text-[#374151] mt-2'>We provide a range of milk transportation solutions.</p>
+                    <h2 className="text-[#1E293B] font-poppins text-4xl sm:text-3xl xs:text-2xl font-bold">Our Services</h2>
+                    <p className='text-lg sm:text-base xs:text-sm text-[#374151] mt-2'>We provide a range of milk transportation solutions.</p>
                 </div>
-                <div className='mt-8 grid md:grid-cols-3 gap-10'>
+                <div className='mt-8 grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-10 sm:gap-6 xs:gap-4'>
                     <div className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
-                        <h3 className='text-2xl font-bold  text-[#0070F3]'>16ft & 19ft Trucks</h3>
-                        <p className='text-[#374151] mt-2'>For larger scale milk product transportation with temperature control</p>
-                        <img className='p-12' src={truckbg} alt="" />
+                        <h3 className='text-2xl sm:text-xl xs:text-lg font-bold text-[#0070F3]'>16ft & 19ft Trucks</h3>
+                        <p className='text-[#374151] mt-2 text-sm xs:text-xs'>For larger scale milk product transportation with temperature control</p>
+                        <img className='p-12 sm:p-8 xs:p-4' src={truckbg} alt="" />
                     </div>
                     <div className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
-                        <h3 className='text-xl font-semibold text-[#0070F3]'>Pickup Trucks</h3>
-                        <p className='text-[#374151]'>Perfect for smaller bulk deliveries and quick transport.</p>
-                        <img className='mt-12' src={pickuptruck} alt="" />
-
+                        <h3 className='text-xl sm:text-lg xs:text-base font-semibold text-[#0070F3]'>Pickup Trucks</h3>
+                        <p className='text-[#374151] text-sm xs:text-xs'>Perfect for smaller bulk deliveries and quick transport.</p>
+                        <img className='mt-12 sm:mt-8 xs:mt-4' src={pickuptruck} alt="" />
                     </div>
                     <div className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
-                        <h3 className='text-xl font-semibold text-[#0070F3]'>Cold Chain Logistics</h3>
-                        <p className='text-[#374151] mt-2'>Ensuring the freshness of milk products during transit</p>
-                        <img className='mt-20 p-6' src={accontainer} alt="" />
+                        <h3 className='text-xl sm:text-lg xs:text-base font-semibold text-[#0070F3]'>Cold Chain Logistics</h3>
+                        <p className='text-[#374151] mt-2 text-sm xs:text-xs'>Ensuring the freshness of milk products during transit</p>
+                        <img className='mt-20 sm:mt-12 xs:mt-6 p-6 xs:p-2' src={accontainer} alt="" />
                     </div>
                 </div>
             </div>
 
-            <section className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] py-12 text-center text-white">
-                <h2 className="text-3xl font-bold">Ready to Transport with Us?</h2>
-                <p className="mt-4 text-lg">Get in touch and request a quote today.</p>
-                <a href="#quote" className="mt-6 inline-block bg-[#FFD700] text-[#002B5B] font-semibold px-8 py-3 rounded-lg hover:bg-[#FFECB3]">
+            <section className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] py-12 sm:py-8 xs:py-6 text-center text-white px-4">
+                <h2 className="text-3xl sm:text-2xl xs:text-xl font-bold">Ready to Transport with Us?</h2>
+                <p className="mt-4 sm:mt-2 xs:mt-1 text-lg sm:text-base xs:text-sm">Get in touch and request a quote today.</p>
+                <a href="#quote" className="mt-6 inline-block bg-[#FFD700] text-[#002B5B] font-semibold px-8 sm:px-6 xs:px-4 py-3 sm:py-2 xs:py-1 rounded-lg hover:bg-[#FFECB3]">
                     Request a Quote
                 </a>
             </section>
 
-            <footer className="bg-[#0A2540] text-[#F4F4F4] py-8 px-2">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between">
-                    <div>
+            <footer className="bg-[#0A2540] text-[#F4F4F4] py-8 sm:py-6 xs:py-4 px-4">
+                <div className="max-w-7xl mx-auto flex flex-col md:flex-row sm:flex-col xs:flex-col justify-between">
+                    <div className="text-center sm:text-left">
                         <h3 className="text-lg font-bold text-white">Jagdamba Transport Services</h3>
-                        <p className="mt-2">Delivering fresh dairy products across India.</p>
+                        <p className="mt-2 text-sm xs:text-xs">Delivering fresh dairy products across India.</p>
                     </div>
-                    <div className="mt-4 md:mt-0">
-                        <p>Contact: +91 12345 67890</p>
-                        <p>Email: jagdambatransport@gmail.com</p>
+                    <div className="mt-4 sm:mt-0 xs:mt-2 text-center sm:text-left">
+                        <p className="text-sm xs:text-xs">Contact: +91 12345 67890</p>
+                        <p className="text-sm xs:text-xs">Email: jagdambatransport@gmail.com</p>
                     </div>
-                    <div className="mt-4 md:mt-0 flex space-x-4">
-                        <a href="#" className="hover:text-[#FFA500]">Facebook</a>
-                        <a href="#" className="hover:text-[#FFA500]">Instagram</a>
+                    <div className="mt-4 sm:mt-0 xs:mt-2 flex space-x-4 justify-center sm:justify-start">
+                        <a href="#" className="hover:text-[#FFA500] text-sm xs:text-xs">Facebook</a>
+                        <a href="#" className="hover:text-[#FFA500] text-sm xs:text-xs">Instagram</a>
                     </div>
                 </div>
             </footer>
@@ -76,4 +75,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage
+export default HomePage;

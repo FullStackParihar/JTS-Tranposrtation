@@ -48,7 +48,7 @@ function Header() {
           </ul>
         </div>
         <div className="p-4 lg:hidden block">
-          <button onClick={ } > <a href=""><FaBars className="text-4xl" /></a></button>
+          <a href=""><FaBars className="text-4xl" /></a> 
 
         </div>
 

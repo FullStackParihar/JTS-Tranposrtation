@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import jtslogo from '../components/jtslogo.png';
+import { FaBars } from "react-icons/fa";
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,24 +29,28 @@ function Header() {
           <ul className='flex items-center flex-wrap font-poppins text-gray-800 text-2xl font-semibold gap-5 px-4 lg:flex hidden'>
             <li>
               <a href="">Home</a>
-             </li>
+            </li>
             <li>
               <a href="">Services</a>
-             </li>
+            </li>
             <li>
               <a href="">Coverage</a>
-             </li>
+            </li>
             <li>
               <a href="">Fleet</a>
-             </li>
+            </li>
             <li>
               <a href="">Contact</a>
-             </li>
+            </li>
             <li>
               <a href="">Get Service</a>
-             </li>
+            </li>
           </ul>
         </div>
+        <div className="p-4 lg:hidden block">
+          <a href=""><FaBars className="text-4xl" /></a>
+        </div>
+
       </header>
     </>
   );

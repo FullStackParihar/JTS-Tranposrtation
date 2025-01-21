@@ -6,8 +6,8 @@ import accontainer from '../pages/accontainer.png'
 const HomePage = () => {
     return (
         <div>
-            <div id='mainbg' className='relative bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] h-96'>
-                <div className='max-w-8xl mx-auto text-start p-8'>
+            <div id='mainbg' className='relative flex items-center justify-start bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] h-[34rem]'>
+                <div className='text-start absolute top-10 p-12'>
                     <h1 className='text-[3rem] font-extrabold text-[#0A2540] hover:text-[#60301f] duration-150'>
                         Reliable Bulk Milk Transportation
                     </h1>

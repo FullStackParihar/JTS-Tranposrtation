@@ -3,8 +3,10 @@ import '../pages/mainbg.css'
 import truckbg from '../pages/truckbg.png'
 import pickuptruck from '../pages/pickuptruck.png'
 import accontainer from '../pages/accontainer.png'
+import { useToggle } from "../Context/ToggleContext";
 
 const HomePage = () => {
+    const { toggle, toggleValue } = useToggle();
     return (
         <div>
             <div id='mainbg' className='relative flex items-center justify-start bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] h-[38rem] sm:h-[34rem] xs:h-[28rem]'>
@@ -20,9 +22,6 @@ const HomePage = () => {
                         </p>
                     </div>
                 </div>
-
-
-
 
                 <div id="getbutton" className='absolute w-full bottom-4 flex justify-center'>
                     <button className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] hover:bg-green-700 mt-4 text-white font-roboto px-6 py-3 xs:px-4 xs:py-2 text-base xs:text-sm rounded-lg">
@@ -60,11 +59,11 @@ const HomePage = () => {
                 <div className="mt-8 grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                     <div className="p-6 bg-[#F57C00] text-white rounded-lg shadow-lg">
                         <p className="text-lg">"Excellent service and on-time deliveries! Highly recommended."</p>
-                        <p className="mt-2 font-bold text-[#212121]">- Dairy Corp Ltd.</p>
+                        <p className="mt-2 font-bold text-[#212121]">- D mart Ltd.</p>
                     </div>
                     <div className="p-6 bg-[#F57C00] text-white rounded-lg shadow-lg">
                         <p className="text-lg">"Their cold-chain logistics are top-notch. Fresh milk every time!"</p>
-                        <p className="mt-2 font-bold text-[#212121]">- Fresh Milk Pvt Ltd.</p>
+                        <p className="mt-2 font-bold text-[#212121]">- keventer icecream Pvt Ltd.</p>
                     </div>
                 </div>
             </section>

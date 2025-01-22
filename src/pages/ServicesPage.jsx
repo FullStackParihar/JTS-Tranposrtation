@@ -34,7 +34,7 @@ const ServicesPage = () => {
                     </div>
 
                     <div className="p-6 bg-[#F57C00] rounded-lg shadow-lg text-white flex flex-col items-center">
-                        <img src={accontainer} alt="Cold Chain Logistics" className="w-full h-full object-contain rounded-lg" />
+                        <img src={accontainer} alt="Cold Chain Logistics" className="w-full h-full drop-shadow-2xl object-contain rounded-lg" />
                         <FaCogs className="text-4xl mt-4" />
                         <h3 className="text-2xl font-semibold mt-4">Cold Chain Logistics</h3>
                         <p className="mt-2">Ensure your milk products stay fresh with our advanced refrigeration technology.</p>

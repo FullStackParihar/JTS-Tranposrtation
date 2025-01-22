@@ -44,7 +44,7 @@ function Header() {
       <header className={`fixed w-full top-0 flex justify-between items-center transition-all duration-300 px-4 md:px-8 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
         <div id='logo' className="flex items-center">
           <img className='h-16 md:h-20' src={jtslogo} alt="Jagdamba Transport Logo" />
-          <h2 className='text-2xl md:text-3xl font-bold text-orange-600 leading-snug sm:leading-tight text-center sm:text-left whitespace-nowrap'>
+          <h2 className='text-2xl md:text-xl font-bold text-orange-600 leading-snug sm:leading-tight text-center sm:text-left whitespace-nowrap'>
             Jagdamba Transport Services
           </h2>
         </div>
@@ -74,9 +74,8 @@ function Header() {
           {/* Mobile Menu */}
           <div
             ref={menuRef}
-            className={`absolute right-0 top-14 w-48 bg-white shadow-lg rounded-lg z-50 transition-transform duration-300 ease-in-out ${
-              isToggled ? 'scale-100' : 'scale-0'
-            }`}
+            className={`absolute right-0 top-14 w-48 bg-white shadow-lg rounded-lg z-50 transition-transform duration-300 ease-in-out ${isToggled ? 'scale-100' : 'scale-0'
+              }`}
           >
             <ul className="flex flex-col text-gray-800 font-semibold text-lg">
               <li className="p-3 border-b border-gray-200 hover:bg-gray-100"><Link to="/">Home</Link></li>

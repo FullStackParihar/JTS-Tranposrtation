@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import ServicesPage from './pages/ServicesPage';
 import { ToggleProvider } from "./Context/ToggleContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CoveragePage from './pages/CoveragePage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/services" element={<ServicesPage />} />
+            <Route path="/coverage" element={<CoveragePage />} />
           </Routes>
         </div>
       </BrowserRouter>

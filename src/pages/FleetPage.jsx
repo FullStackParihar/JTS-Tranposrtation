@@ -33,9 +33,9 @@ const Fleet = () => {
                 {filteredFleetData.map((vehicle) => (
                     <div
                         key={vehicle.id}
-                        className="bg-[#F57C00] shadow-lg rounded-2xl overflow-hidden border-4 border-[#6A1B9A] transform transition duration-500 hover:scale-105 hover:shadow-2xl"
+                        className="bg-[#F57C00] shadow-lg rounded-3xl overflow-hidden border-4 border-[#6A1B9A] transform transition duration-500 hover:scale-105 hover:shadow-2xl"
                     >
-                        <img src={vehicle.image} alt={vehicle.name} className="w-full h-60 object-contain" />
+                        <img src={vehicle.image} alt={vehicle.name} className="w-full h-60 object-cover" />
                         <div className="p-6 bg-white rounded-b-2xl">
                             <h2 className="text-2xl font-semibold text-[#6A1B9A]">{vehicle.name}</h2>
                             <p className="text-gray-600 mt-2">{vehicle.description}</p>

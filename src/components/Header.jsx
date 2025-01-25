@@ -57,7 +57,7 @@ function Header() {
             <li><Link to="/coverage">Coverage</Link></li>
             <li><Link to="/fleet">Fleet</Link></li>
             <li><Link to="/contact">Contact</Link></li>
-            <li><Link to="/get-service" className="text-orange-600">Get Service</Link></li>
+            <li><Link to="/get-service">Get Service</Link></li>
           </ul>
         </nav>
 
@@ -78,12 +78,12 @@ function Header() {
               }`}
           >
             <ul className="flex flex-col text-gray-800 font-semibold text-lg">
-              <li className="p-3 border-b border-gray-200 hover:bg-gray-100"><Link to="/">Home</Link></li>
-              <li className="p-3 border-b border-gray-200 hover:bg-gray-100"><Link to="/services">Services</Link></li>
-              <li className="p-3 border-b border-gray-200 hover:bg-gray-100"><Link to="/coverage">Coverage</Link></li>
-              <li className="p-3 border-b border-gray-200 hover:bg-gray-100"><Link to="/fleet">Fleet</Link></li>
-              <li className="p-3 border-b border-gray-200 hover:bg-gray-100"><Link to="/contact">Contact</Link></li>
-              <li className="p-3 bg-orange-600 text-white hover:bg-orange-700"><Link to="/get-service">Get Service</Link></li>
+              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/">Home</Link></li>
+              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/services">Services</Link></li>
+              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/coverage">Coverage</Link></li>
+              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/fleet">Fleet</Link></li>
+              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/contact">Contact</Link></li>
+              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/get-service">Get Service</Link></li>
             </ul>
           </div>
         </div>

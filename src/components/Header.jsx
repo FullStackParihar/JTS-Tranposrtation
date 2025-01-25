@@ -51,7 +51,7 @@ function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex">
-          <ul className='flex items-center font-poppins text-gray-800 text-lg md:text-xl font-semibold gap-6'>
+          <ul className='flex items-center font-poppins text-[#6A1B9A]   text-lg md:text-xl font-semibold gap-6'>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/services">Services</Link></li>
             <li><Link to="/coverage">Coverage</Link></li>

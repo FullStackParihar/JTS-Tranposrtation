@@ -4,6 +4,7 @@ import truckbg from '../pages/truckbg.png'
 import pickuptruck from '../pages/pickuptruck.png'
 import accontainer from '../pages/accontainer.png'
 import { useToggle } from "../Context/ToggleContext";
+import { FaTruck, FaClock, FaShieldAlt, FaMapMarkedAlt } from "react-icons/fa";
 
 const HomePage = () => {
     const { toggle, toggleValue } = useToggle();
@@ -53,6 +54,61 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
+
+
+            <div className="mb-16 flex flex-col md:flex-row items-center justify-center gap-10">
+                <div className="bg-white shadow-lg rounded-2xl border-4 border-[#6A1B9A] p-6 max-w-md text-center transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+                    <img
+                        src="https://img.freepik.com/free-vector/cargo-vehicle-fast-delivery-realistic-composition_1284-19144.jpg?t=st=1737832571~exp=1737836171~hmac=8ce089e70f91254447ce3b72b364bf6edd5b148bfcc2b37c3a86681fbb3ba7b9&w=740"
+                        alt="Fast Delivery"
+                        className="w-40 h-auto mx-auto mb-4 animate-pulse rounded-full border-4 border-[#F57C00]"
+                    />
+                    <h2 className="text-3xl font-bold text-[#6A1B9A]">Fast & Reliable Delivery</h2>
+                    <p className="text-gray-600 mt-2">
+                        We ensure timely and secure transportation of your dairy products with our efficient fleet.
+                    </p>
+                    <p className="mt-4 text-[#F57C00] font-bold text-lg animate-bounce">
+                        Your milk, delivered on time, every time!
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-lg">
+                    <div className="bg-[#6A1B9A] text-white p-5 rounded-2xl flex items-center space-x-4 shadow-lg">
+                        <FaTruck size={50} className="text-[#F57C00]" />
+                        <div>
+                            <h3 className="text-xl font-bold">Extensive Fleet</h3>
+                            <p>We have a wide range of vehicles for your needs.</p>
+                        </div>
+                    </div>
+
+                    <div className="bg-[#6A1B9A] text-white p-5 rounded-2xl flex items-center space-x-4 shadow-lg">
+                        <FaClock size={50} className="text-[#F57C00]" />
+                        <div>
+                            <h3 className="text-xl font-bold">On-Time Delivery</h3>
+                            <p>We value your time with prompt delivery services.</p>
+                        </div>
+                    </div>
+
+                    <div className="bg-[#6A1B9A] text-white p-5 rounded-2xl flex items-center space-x-4 shadow-lg">
+                        <FaMapMarkedAlt size={50} className="text-[#F57C00]" />
+                        <div>
+                            <h3 className="text-xl font-bold">Efficient Routing</h3>
+                            <p>We value your time with prompt delivery services.</p>
+                        </div>
+                    </div>
+
+                    <div className="bg-[#6A1B9A] text-white p-5 rounded-2xl flex items-center space-x-4 shadow-lg">
+                        <FaShieldAlt size={50} className="text-[#F57C00]" />
+                        <div>
+                            <h3 className="text-xl font-bold">Secure Transport</h3>
+                            <p>Your dairy products are transported with utmost care.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
 
             <section className="bg-[#6A1B9A] py-16 text-white text-center">
                 <h2 className="text-3xl font-bold text-[#FFFFFF]">What Our Clients Say</h2>

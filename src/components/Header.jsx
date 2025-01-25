@@ -41,13 +41,13 @@ function Header() {
 
   return (
     <>
-      <header className={`fixed w-full z-99 top-0 flex justify-between items-center transition-all duration-300 px-4 md:px-8 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
-        <div id='logo' className="flex items-center">
-          <img className='h-16 md:h-20' src={jtslogo} alt="Jagdamba Transport Logo" />
-          <h2 className='text-lg md:text-2xl font-bold text-orange-600 leading-snug sm:leading-tight text-center sm:text-left whitespace-nowrap'>
+   <header className={`fixed w-full z-99 top-0 flex justify-between items-center transition-all duration-300 px-4 md:px-8 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
+    <div id='logo' className="flex items-center">
+        <img className='h-16 md:h-20' src={jtslogo} alt="Jagdamba Transport Logo" />
+        <h2 className={`text-lg md:text-2xl font-bold ${isScrolled ? 'text-[#6A1B9A] ' : 'text-[#F57C00]'} leading-snug sm:leading-tight text-center sm:text-left whitespace-nowrap`}>
             Jagdamba Transport Services
-          </h2>
-        </div>
+        </h2>
+    </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex">

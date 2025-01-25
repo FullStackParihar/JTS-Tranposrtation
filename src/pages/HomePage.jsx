@@ -56,7 +56,7 @@ const HomePage = () => {
             </div>
 
 
-            <div className="mb-16 flex flex-col md:flex-row items-center justify-center gap-10">
+            <div className="mb-16 flex flex-col px-4 md:flex-row items-center justify-center gap-10">
                 <div className="bg-white shadow-lg rounded-2xl border-4 border-[#6A1B9A] p-6 max-w-md text-center transform transition duration-500 hover:scale-105 hover:shadow-2xl">
                     <img
                         src="https://img.freepik.com/free-vector/cargo-vehicle-fast-delivery-realistic-composition_1284-19144.jpg?t=st=1737832571~exp=1737836171~hmac=8ce089e70f91254447ce3b72b364bf6edd5b148bfcc2b37c3a86681fbb3ba7b9&w=740"
@@ -72,7 +72,7 @@ const HomePage = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-lg">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-2 max-w-lg">
                     <div className="bg-[#6A1B9A] text-white p-5 rounded-2xl flex items-center space-x-4 shadow-lg">
                         <FaTruck size={50} className="text-[#F57C00]" />
                         <div>
@@ -110,9 +110,9 @@ const HomePage = () => {
 
 
 
-            <section className="bg-[#6A1B9A] py-16 text-white text-center">
+            <section className="bg-[#6A1B9A] py-6 text-white text-center">
                 <h2 className="text-3xl font-bold text-[#FFFFFF]">What Our Clients Say</h2>
-                <div className="mt-8 grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div className="mt-6 grid md:grid-cols-2 gap-8 px-4 max-w-4xl mx-auto">
                     <div className="p-6 bg-[#F57C00] text-white rounded-lg shadow-lg">
                         <p className="text-lg">"Excellent service and on-time deliveries! Highly recommended."</p>
                         <p className="mt-2 font-bold text-[#212121]">- D mart Ltd.</p>
@@ -124,7 +124,7 @@ const HomePage = () => {
                 </div>
             </section>
 
-            <section className="py-16 bg-[#6A1B9A] text-white text-center">
+            <section className="py-8 bg-[#6A1B9A] text-white text-center">
                 <h2 className="text-3xl sm:text-4xl font-bold">Get in Touch</h2>
                 <p className="mt-4 text-lg sm:text-xl">Have any questions or need a quote? Reach out to us!</p>
                 <form className="mt-8 max-w-md sm:max-w-lg mx-auto px-4 sm:px-0">

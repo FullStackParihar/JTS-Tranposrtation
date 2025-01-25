@@ -73,7 +73,7 @@ const HomePage = () => {
                         We ensure timely and secure transportation of your dairy products with our efficient fleet.
                     </p>
                     <p className="mt-4 text-[#F57C00] font-bold text-lg animate-bounce">
-                        Your milk, delivered on time, every time!
+                        Your products, delivered on time, every time!
                     </p>
                 </div>
 

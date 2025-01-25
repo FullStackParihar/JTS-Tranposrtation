@@ -41,23 +41,22 @@ function Header() {
 
   return (
     <>
-   <header className={`fixed w-full z-99 top-0 flex justify-between items-center transition-all duration-300 px-4 md:px-8 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
-    <div id='logo' className="flex items-center">
-        <img className='h-16 md:h-20' src={jtslogo} alt="Jagdamba Transport Logo" />
-        <h2 className={`text-xl md:text-2xl font-bold ${isScrolled ? 'text-[#6A1B9A] ' : 'text-[#F57C00]'} leading-snug sm:leading-tight text-center sm:text-left whitespace-nowrap`}>
+      <header className={`fixed w-full z-99 top-0 flex justify-between items-center transition-all duration-300 px-4 md:px-8 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
+        <div id='logo' className="flex items-center">
+          <img className='h-16 md:h-20' src={jtslogo} alt="Jagdamba Transport Logo" />
+          <h2 className={`text-xl md:text-2xl font-bold ${isScrolled ? 'text-[#6A1B9A] ' : 'text-[#F57C00]'} leading-snug sm:leading-tight text-center sm:text-left whitespace-nowrap`}>
             Jagdamba Transport Services
-        </h2>
-    </div>
+          </h2>
+        </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex">
-        <ul className={`flex items-center font-poppins text-lg md:text-xl transition-all duration-600 font-semibold gap-6 ${isScrolled ? 'text-[#F57C00]' : 'text-[#6A1B9A]'}`}>
-        <li><Link to="/">Home</Link></li>
+          <ul className={`flex items-center font-poppins text-lg md:text-xl transition-all duration-600 font-semibold gap-6 ${isScrolled ? 'text-[#F57C00]' : 'text-[#6A1B9A]'}`}>
+            <li><Link to="/">Home</Link></li>
             <li><Link to="/services">Services</Link></li>
             <li><Link to="/coverage">Coverage</Link></li>
             <li><Link to="/fleet">Fleet</Link></li>
             <li><Link to="/contact">Contact</Link></li>
-            <li><Link to="/get-service">Get Service</Link></li>
           </ul>
         </nav>
 
@@ -82,9 +81,7 @@ function Header() {
               <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/services">Services</Link></li>
               <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/coverage">Coverage</Link></li>
               <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/fleet">Fleet</Link></li>
-              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/contact">Contact</Link></li>
-              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/get-service">Get Service</Link></li>
-            </ul>
+              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/contact">Contact</Link></li>            </ul>
           </div>
         </div>
       </header>

@@ -31,12 +31,12 @@ const HomePage = () => {
                 </div>
             </div>
 
-            <div id="service" className='py-16 bg- text-[#374151] px-4 sm:px-6'>
+            <div id="service" className='py-12 bg- text-[#374151] px-4 sm:px-6'>
                 <div className='max-w-7xl mx-auto text-center'>
                     <h2 className="text-[#1E293B] font-poppins text-4xl sm:text-3xl xs:text-2xl font-bold">Our Services</h2>
                     <p className='text-lg sm:text-base xs:text-sm text-[#374151] mt-2'>We provide a range of milk transportation solutions.</p>
                 </div>
-                <div className='mt-8 grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-10 sm:gap-6 xs:gap-4'>
+                <div className='mt-4 grid md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-10 sm:gap-6 xs:gap-4'>
                     <div className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
                         <h3 className='text-2xl sm:text-xl xs:text-lg font-bold text-[#0070F3]'>16ft & 19ft Trucks</h3>
                         <p className='text-[#374151] mt-2 text-sm xs:text-xs'>For larger scale milk product transportation with temperature control</p>

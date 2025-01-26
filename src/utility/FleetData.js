@@ -45,9 +45,9 @@ const fleetData = [
   },
   {
     id: 7,
-    name: "Tata Truck",
+    name: "Pickup Truck",
     image:"https://img.freepik.com/free-vector/hand-drawn-transport-truck-illustration_23-2149156733.jpg?uid=R102251813&ga=GA1.1.821517317.1706627333&semt=ais_hybrid",
-    capacity: "12,000 liters",
+    capacity: "5,000 liters",
     description: "Suitable for heavy-duty transport with robust performance similar to Eicher.",
   
   },
@@ -69,9 +69,9 @@ const fleetData = [
   },
   {
     id: 10,
-    name: "Tata Truck",
+    name: "Pickup Truck",
     image: "https://img.freepik.com/free-vector/hand-drawn-transport-truck_23-2149163605.jpg?uid=R102251813&ga=GA1.1.821517317.1706627333&semt=ais_hybrid",
-    capacity: "12,000 liters",
+    capacity: "5,000 liters",
     description: "Suitable for heavy-duty transport with robust performance similar to Eicher.",
   
   },

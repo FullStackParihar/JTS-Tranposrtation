@@ -12,9 +12,9 @@ const Fleet = () => {
     );
 
     return (
-        <div className="bg-[#6A1B9A] min-h-screen py-10 px-5">
-            <h1 className="text-4xl font-bold text-center text-[#F57C00] mt-10 mb-8">Our Fleet</h1>
-            <p className="text-center text-white text-lg mb-10">We have more vehicles like this to serve your needs.</p>
+        <div className="bg-[#6A1B9A] min-h-screen py-6 px-5">
+            <h1 className="text-4xl font-bold text-center text-[#F57C00] mt-10 mb-2">Our Fleet</h1>
+            <p className="text-center text-white text-lg mb-8">We have more vehicles like this to serve your needs.</p>
 
             {/* Search Bar */}
             <div className="mb-10 text-center">
@@ -25,7 +25,7 @@ const Fleet = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <FaSearch className="inline-block ml-2 text-4xl text-[#F57C00] cursor-pointer" />
+                <FaSearch className="inline-block ml-2 text-2xl text-[#F57C00] cursor-pointer" />
             </div>
 
             {/* Fleet Cards */}

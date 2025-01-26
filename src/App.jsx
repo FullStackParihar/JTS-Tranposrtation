@@ -3,9 +3,11 @@ import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import FleetPage from './pages/FleetPage'
 import ServicesPage from './pages/ServicesPage';
+import ContactPage from './pages/ContactPage';
 import { ToggleProvider } from "./Context/ToggleContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CoveragePage from './pages/CoveragePage';
+ 
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/coverage" element={<CoveragePage />} />
             <Route path="/fleet" element={<FleetPage />} />
+            <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </div>
       </BrowserRouter>

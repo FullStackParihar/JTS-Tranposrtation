@@ -15,7 +15,7 @@ const HomePage = () => {
                 {/* image section */}
                 <div className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 flex items-center justify-center p-8 sm:p-6 xs:p-4'>
                     <div className='text-center'>
-                        <h1 className='text-[2rem] sm:text-[2rem] xs:text-[1.5rem] font-extrabold text-[#FFFFFF]'>
+                        <h1 className='text-[2rem] sm:text-[2rem] xs:text-[1.5rem] font-extrabold font-barlow text-[#FFFFFF]'>
                             Reliable Bulk Milk Transportation
                         </h1>
                         <p className='mt-4 text-lg sm:text-base xs:text-sm font-semibold text-[#FFFFFF]'>
@@ -76,7 +76,7 @@ const HomePage = () => {
                         Your products, delivered on time, every time!
                     </p>
                 </div>
-
+                {/* fast delivery card */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-2 max-w-lg">
                     <div className="bg-[#6A1B9A] text-white p-5 rounded-2xl flex items-center space-x-4 shadow-lg">
                         <FaTruck size={50} className="text-[#F57C00]" />

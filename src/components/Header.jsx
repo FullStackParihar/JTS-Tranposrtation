@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import jtslogo from '../components/jtslogo.png';
 import { FaBars } from "react-icons/fa";
-
+import AnimatedText from "./AnimatedText";
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
@@ -47,6 +47,7 @@ function Header() {
           <h2 className={`text-xl md:text-2xl font-oswald font-extrabold ${isScrolled ? 'text-[#6A1B9A] ' : 'text-[#F57C00]'} leading-snug sm:leading-tight text-center sm:text-left whitespace-nowrap`}>
             Jagdamba Transport Services
           </h2>
+
         </div>
 
         {/* Desktop Navigation */}

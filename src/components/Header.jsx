@@ -52,14 +52,17 @@ function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex">
-          <ul className={`flex items-center font-poppins text-lg md:text-xl transition-all duration-600 font-semibold gap-6 ${isScrolled ? 'text-[#F57C00]' : 'text-[#6A1B9A]'}`}>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/services">Services</Link></li>
-            <li><Link to="/coverage">Coverage</Link></li>
-            <li><Link to="/fleet">Fleet</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
-          </ul>
-        </nav>
+  <ul className={`flex items-center font-poppins text-lg md:text-xl transition-all duration-600 font-semibold gap-6 ${isScrolled ? 'text-[#F57C00]' : 'text-[#6A1B9A]'}`}>
+    <li><Link to="/">Home</Link></li>
+    <li><Link to="/services">Services</Link></li>
+    <li><Link to="/coverage">Coverage</Link></li>
+    <li><Link to="/fleet">Fleet</Link></li>
+    <li className={`${isScrolled ? 'bg-[#6A1B9A] text-white' : 'bg-[#F57C00] text-white'} p-2 px-6 rounded-full`}>
+      <Link to="/contact">Contact</Link>
+    </li>
+  </ul>
+</nav>
+
 
         {/* Mobile Menu Button */}
         <div className="lg:hidden block relative">
@@ -78,11 +81,12 @@ function Header() {
               }`}
           >
             <ul className="flex flex-col text-gray-800 font-semibold text-lg">
-              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/">Home</Link></li>
-              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/services">Services</Link></li>
-              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/coverage">Coverage</Link></li>
-              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/fleet">Fleet</Link></li>
-              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/contact">Contact</Link></li>            </ul>
+            <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/">Home</Link></li>
+            <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/services">Services</Link></li>
+            <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/coverage">Coverage</Link></li>
+            <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/fleet">Fleet</Link></li>
+            <li className='p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]'><Link to="/contact">Contact</Link></li>
+            </ul>
           </div>
         </div>
       </header>

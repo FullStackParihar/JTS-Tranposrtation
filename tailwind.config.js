@@ -11,7 +11,11 @@ module.exports = {
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
+        oswald: ['Oswald', 'sans-serif'],
       },
+      fontWeight: {
+        extraThick: '950',}
     }, // Extend Tailwind's default theme if needed
   },
   plugins: [],

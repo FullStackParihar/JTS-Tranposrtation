@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import jtslogo from '../components/jtslogo.png';
 import { FaBars } from "react-icons/fa";
- 
+
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
@@ -42,12 +42,12 @@ function Header() {
   return (
     <>
       <header className={`fixed w-full z-99 top-0 flex justify-between items-center transition-all duration-300 px-4 md:px-8 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
-        <div id='logo' className="flex items-center">
+        <Link to="/">  <div id='logo' className="flex items-center">
           <img className='h-16 md:h-20' src={jtslogo} alt="Jagdamba Transport Logo" />
           <h2 className={`text-xl md:text-2xl font-oswald font-extrabold ${isScrolled ? 'text-[#6A1B9A] ' : 'text-[#F57C00]'} leading-snug sm:leading-tight text-center sm:text-left whitespace-nowrap`}>
             Jagdamba Transport Services
           </h2>
-        </div>
+        </div></Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex">

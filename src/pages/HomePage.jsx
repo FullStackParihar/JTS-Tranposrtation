@@ -1,12 +1,11 @@
 import React from 'react'
 import '../pages/mainbg.css'
-import truckbg from '../pages/truckbg.png'
-import pickuptruck from '../pages/pickuptruck.png'
-import accontainer from '../pages/accontainer.png'
+import { Link } from 'react-router-dom';
 import { useToggle } from "../Context/ToggleContext";
- 
- 
+
+
 import { FaTruck, FaClock, FaShieldAlt, FaMapMarkedAlt } from "react-icons/fa";
+import TrucksData from './../utility/TruckData';
 
 const HomePage = () => {
     const { toggle, toggleValue } = useToggle();
@@ -39,26 +38,16 @@ const HomePage = () => {
                     <p className='text-lg sm:text-base xs:text-sm text-[#374151] mt-2'>We provide a range of milk transportation solutions.</p>
                 </div>
                 <div className='mt-4 grid md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-10 sm:gap-6 xs:gap-4'>
-             <div className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
-                        <h3 className='text-2xl sm:text-xl xs:text-lg font-bold text-[#0070F3]'>16ft & 19ft Trucks</h3>
-                        <p className='text-[#374151] mt-2 text-sm xs:text-xs'>For larger scale milk product transportation with temperature control</p>
-                        <img className='p-12 sm:p-8 xs:p-4' src={truckbg} alt="" />
-                    </div> 
-                    <div className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
-                        <h3 className='text-xl sm:text-lg xs:text-base font-semibold text-[#0070F3]'>Pickup Trucks</h3>
-                        <p className='text-[#374151] text-sm xs:text-xs'>Perfect for smaller bulk deliveries and quick transport.</p>
-                        <img className='mt-12 sm:mt-8 xs:mt-4' src={pickuptruck} alt="" />
-                    </div>
-                    <div className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
-                        <h3 className='text-xl sm:text-lg xs:text-base font-semibold text-[#0070F3]'>Cold Chain Logistics</h3>
-                        <p className='text-[#374151] mt-2 text-sm xs:text-xs'>Ensuring the freshness of milk products during transit</p>
-                        <img className='mt-20 sm:mt-12 xs:mt-6 p-6 xs:p-2' src={accontainer} alt="" />
-                    </div>
-                    <div className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
-                        <h3 className='text-xl sm:text-lg xs:text-base font-semibold text-[#0070F3]'>More Vehicles...</h3>
-                        <p className='text-[#374151] mt-2 text-sm xs:text-xs'>As Your need</p>
-                        <img className='mt-20 sm:mt-12 xs:mt-6 p-6 xs:p-2' src="https://img.freepik.com/free-vector/hand-drawn-transportation-truck-illustration_23-2149163890.jpg?t=st=1737835450~exp=1737839050~hmac=09e36fd3d4d721f4aef96e68500a4849586887dd13eb7b16c240948e46c27021&w=900" alt="" />
-                    </div>
+
+
+                    {TrucksData.map((truck) => (
+                        <Link key={truck.id} to={`/product/${truck.id}`} className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
+                            <h3 className='text-2xl sm:text-xl xs:text-lg font-bold text-[#0070F3]'>{truck.title}</h3>
+                            <p className='text-[#374151] mt-2 text-sm xs:text-xs'>{truck.description}</p>
+                            <img className='p-12 sm:p-8 xs:p-4' src={truck.image} alt={truck.title} />
+                        </Link>
+                    ))}
+
                 </div>
             </div>
 

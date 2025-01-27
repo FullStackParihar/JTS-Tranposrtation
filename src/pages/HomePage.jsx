@@ -4,6 +4,8 @@ import truckbg from '../pages/truckbg.png'
 import pickuptruck from '../pages/pickuptruck.png'
 import accontainer from '../pages/accontainer.png'
 import { useToggle } from "../Context/ToggleContext";
+ 
+ 
 import { FaTruck, FaClock, FaShieldAlt, FaMapMarkedAlt } from "react-icons/fa";
 
 const HomePage = () => {
@@ -37,11 +39,11 @@ const HomePage = () => {
                     <p className='text-lg sm:text-base xs:text-sm text-[#374151] mt-2'>We provide a range of milk transportation solutions.</p>
                 </div>
                 <div className='mt-4 grid md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-10 sm:gap-6 xs:gap-4'>
-                    <div className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
+             <div className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
                         <h3 className='text-2xl sm:text-xl xs:text-lg font-bold text-[#0070F3]'>16ft & 19ft Trucks</h3>
                         <p className='text-[#374151] mt-2 text-sm xs:text-xs'>For larger scale milk product transportation with temperature control</p>
                         <img className='p-12 sm:p-8 xs:p-4' src={truckbg} alt="" />
-                    </div>
+                    </div> 
                     <div className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
                         <h3 className='text-xl sm:text-lg xs:text-base font-semibold text-[#0070F3]'>Pickup Trucks</h3>
                         <p className='text-[#374151] text-sm xs:text-xs'>Perfect for smaller bulk deliveries and quick transport.</p>

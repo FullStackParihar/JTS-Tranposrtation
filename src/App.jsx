@@ -8,7 +8,6 @@ import { ToggleProvider } from "./Context/ToggleContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CoveragePage from './pages/CoveragePage';
  
-
 function App() {
   return (
     <ToggleProvider>
@@ -23,6 +22,7 @@ function App() {
             <Route path="/coverage" element={<CoveragePage />} />
             <Route path="/fleet" element={<FleetPage />} />
             <Route path="/contact" element={<ContactPage />} />
+ 
           </Routes>
         </div>
       </BrowserRouter>

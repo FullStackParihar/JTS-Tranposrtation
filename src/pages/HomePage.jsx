@@ -42,7 +42,7 @@ const HomePage = () => {
 
                     {TrucksData.map((truck) => (
                         <Link key={truck.id} to={`/product/${truck.id}`} className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
-                            <h3 className='text-2xl sm:text-xl xs:text-lg font-bold text-[#0070F3]'>{truck.title}</h3>
+                            <h3 className='text-4xl sm:text-xl xs:text-lg font-bold text-[#0070F3]'>{truck.title}</h3>
                             <p className='text-[#374151] mt-2 text-sm xs:text-xs'>{truck.description}</p>
                             <img className='p-12 sm:p-8 xs:p-4' src={truck.image} alt={truck.title} />
                         </Link>

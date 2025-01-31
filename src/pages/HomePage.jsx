@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import '../pages/mainbg.css'
 import { Link } from 'react-router-dom';
 import { useToggle } from "../Context/ToggleContext";
@@ -9,6 +9,13 @@ import TrucksData from './../utility/TruckData';
 
 const HomePage = () => {
     const { toggle, toggleValue } = useToggle();
+    const [isLoaded, setisLoaded] = useState(true);
+
+    useEffect(()=>{
+
+        const timer= setTimeout(()=> setisLoaded(false),1000);
+        return ()=> clearTimeout(timer);
+    },[]);
     return (
         <div>
             <div id='mainbg' className='relative flex items-center justify-start bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] h-[38rem] sm:h-[34rem] xs:h-[28rem]'>
@@ -39,15 +46,23 @@ const HomePage = () => {
                 </div>
                 <div className='mt-4 grid md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-10 sm:gap-6 xs:gap-4'>
 
+{ isLoaded ?
+                    TrucksData.map((truck) => (
+                        <Link key={truck.id} to={`/product/${truck.id}`} className='p-8 bg-gray-300 border rounded-lg animate-pulse shadow-lg hover:shadow-2xl'>
+                            <h3 className='text-4xl sm:text-xl xs:text-lg font-bold text-[#0070F3]'></h3>
+                            <p className='text-[#374151] mt-2 text-sm xs:text-xs'></p>
+                            <h3 className='h-80'></h3>
+                        </Link>
+                    ))
 
-                    {TrucksData.map((truck) => (
+                 :   TrucksData.map((truck) => (
                         <Link key={truck.id} to={`/product/${truck.id}`} className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
                             <h3 className='text-4xl sm:text-xl xs:text-lg font-bold text-[#0070F3]'>{truck.title}</h3>
                             <p className='text-[#374151] mt-2 text-sm xs:text-xs'>{truck.description}</p>
                             <img className='p-12 sm:p-8 xs:p-4' src={truck.image} alt={truck.title} />
                         </Link>
-                    ))}
-
+                    ))
+}
                 </div>
             </div>
 

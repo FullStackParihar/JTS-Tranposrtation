@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import fleetData from "../utility/FleetData";
 import { FaTruck, FaSearch, FaQuoteLeft, FaMapMarkerAlt } from "react-icons/fa";
 
 const Fleet = () => {
     const [searchTerm, setSearchTerm] = useState("");
+
+    const [isLoaded, setisLoaded] = useState(true);
+    
+        useEffect(()=>{
+    
+            const timer= setTimeout(()=> setisLoaded(false),1000);
+            return ()=> clearTimeout(timer);
+        },[]);
 
     // Filter fleet data based on the search term
     const filteredFleetData = fleetData.filter((vehicle) =>
@@ -30,7 +38,22 @@ const Fleet = () => {
 
             {/* Fleet Cards */}
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredFleetData.map((vehicle) => (
+{isLoaded ?
+                filteredFleetData.map((vehicle) => (
+                    <div
+                        
+                        className="bg-[#F57C00] shadow-lg rounded-3xl overflow-hidden animate-pulse border-4 border-[#6A1B9A] transform transition duration-500 hover:scale-105 hover:shadow-2xl"
+                    >
+                        <img  className="w-full h-60 object-cover" />
+                        <div className="p-6 bg-white h-44 rounded-b-2xl">
+                            <h2 className="text-2xl font-semibold text-[#6A1B9A]"> </h2>
+                            <p className="text-gray-600 mt-2"></p>
+                            <p className="mt-4 text-[#F57C00] font-bold"> </p>
+                        </div>
+                    </div>
+                ))
+
+               : filteredFleetData.map((vehicle) => (
                     <div
                         key={vehicle.id}
                         className="bg-[#F57C00] shadow-lg rounded-3xl overflow-hidden border-4 border-[#6A1B9A] transform transition duration-500 hover:scale-105 hover:shadow-2xl"

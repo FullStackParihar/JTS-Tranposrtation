@@ -52,10 +52,10 @@ function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex">
           <ul className={`flex items-center font-poppins text-lg md:text-xl transition-all duration-600 font-semibold gap-6 ${isScrolled ? 'text-[#F57C00]' : 'text-[#6A1B9A]'}`}>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/services">Services</Link></li>
-            <li><Link to="/coverage">Coverage</Link></li>
-            <li><Link to="/fleet">Fleet</Link></li>
+            <li><Link to="/" className='hover:bg-[#6A1B9A] p-2 px-4 rounded-full hover:text-white'>Home</Link></li>
+            <li><Link to="/services" className='hover:bg-[#6A1B9A] p-2 px-4 rounded-full hover:text-white'>Services</Link></li>
+            <li><Link to="/coverage" className='hover:bg-[#6A1B9A] p-2 px-4 rounded-full hover:text-white duration-300'>Coverage</Link></li>
+            <li><Link to="/fleet" className='hover:bg-[#6A1B9A] p-2 px-4 rounded-full hover:text-white'>Fleet</Link></li>
             <li className={`${isScrolled ? 'bg-[#6A1B9A] text-white' : 'bg-[#F57C00] text-white'} p-2 px-6 rounded-full`}>
               <Link to="/contact">Contact</Link>
             </li>

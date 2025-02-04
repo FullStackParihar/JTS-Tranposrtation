@@ -12,7 +12,6 @@ const HomePage = () => {
     const [isLoaded, setisLoaded] = useState(true);
 
     useEffect(() => {
-
         const timer = setTimeout(() => setisLoaded(false), 1000);
         return () => clearTimeout(timer);
     }, []);

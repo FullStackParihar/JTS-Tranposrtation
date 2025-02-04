@@ -64,7 +64,6 @@ const HomePage = () => {
                 </div>
             </div>
 
-
             <div className="mb-16 flex flex-col px-4 md:flex-row items-center justify-center gap-10">
                 <div className="bg-white shadow-lg rounded-2xl border-4 border-[#6A1B9A] p-6 max-w-md text-center transform transition duration-500 hover:scale-105 hover:shadow-2xl">
                     <img

@@ -18,7 +18,6 @@ const HomePage = () => {
     return (
         <div>
             <div id='mainbg' className='relative flex items-center justify-start bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] h-[38rem] sm:h-[34rem] xs:h-[28rem]'>
-
                 {/* image section */}
                 <div className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 flex items-center justify-center p-8 sm:p-6 xs:p-4'>
                     <div className='text-center'>

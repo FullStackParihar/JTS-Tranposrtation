@@ -116,7 +116,6 @@ const HomePage = () => {
             </div>
 
 
-
             <section className="bg-[#6A1B9A] py-6 text-white text-center">
                 <h2 className="text-3xl font-bold text-[#FFFFFF]">What Our Clients Say</h2>
                 <div className="mt-6 grid md:grid-cols-2 gap-8 px-4 max-w-4xl mx-auto">

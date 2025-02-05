@@ -80,22 +80,22 @@ function Header() {
               }`}
           >
             <ul className="flex flex-col text-gray-800 font-semibold text-lg">
-  <Link to="/" onClick={() => setIsToggled(false)}> 
-    <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]">Home</li>
-  </Link>
-  <Link to="/services" onClick={() => setIsToggled(false)}> 
-    <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]">Services</li>
-  </Link>
-  <Link to="/coverage" onClick={() => setIsToggled(false)}> 
-    <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]">Coverage</li>
-  </Link>
-  <Link to="/fleet" onClick={() => setIsToggled(false)}> 
-    <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]">Fleet</li>
-  </Link>
-  <Link to="/contact" onClick={() => setIsToggled(false)}> 
-    <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]">Contact</li>
-  </Link>
-</ul>
+              <Link to="/" onClick={() => setIsToggled(false)}>
+                <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]">Home</li>
+              </Link>
+              <Link to="/services" onClick={() => setIsToggled(false)}>
+                <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]">Services</li>
+              </Link>
+              <Link to="/coverage" onClick={() => setIsToggled(false)}>
+                <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]">Coverage</li>
+              </Link>
+              <Link to="/fleet" onClick={() => setIsToggled(false)}>
+                <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]">Fleet</li>
+              </Link>
+              <Link to="/contact" onClick={() => setIsToggled(false)}>
+                <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]">Contact</li>
+              </Link>
+            </ul>
 
           </div>
         </div>

@@ -83,7 +83,7 @@ function Header() {
               <Link to="/"> <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]">Home</li></Link>
               <Link to="/services"><li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]">Services</li></Link>
               <Link to="/coverage"><li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]">Coverage</li></Link>
-              <li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]"><Link to="/fleet">Fleet</Link></li>
+              <Link to="/fleet"><li className="p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]">Fleet</li></Link>
               <li className='p-3 bg-white text-[#6A1B9A] hover:bg-[#F57C00] hover:text-white animation border-[0.5px]'><Link to="/contact">Contact</Link></li>
             </ul>
           </div>

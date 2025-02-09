@@ -15,14 +15,18 @@ const ContactPage = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsLoading(false); // Simulate content loading
-    }, 1500); // Simulate 1.5s loading time
+      setIsLoading(false);  
+    }, 1500);  
     return () => clearTimeout(timer);
   }, []);
 
   const handleChange = (e) => {
+    console.log(e);
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -40,10 +44,10 @@ const ContactPage = () => {
             <div className="h-12 bg-gray-300 rounded-md mb-12"></div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="h-60 bg-gray-300 rounded-md">
-                
+
               </div>
               <div className="h-60 bg-gray-300 rounded-md">
-             
+
               </div>
             </div>
             <div className="h-12 bg-gray-300 rounded-md mt-12"></div>
@@ -71,7 +75,7 @@ const ContactPage = () => {
                   <div className="flex items-center group">
                     <FaPhoneAlt className="mr-3 text-purple-700" />
                     <span className="text-gray-800 font-medium">
-                      +91 123 456 7890
+                      +91 811886
                     </span>
                   </div>
                   <div className="flex items-center group">
@@ -105,7 +109,7 @@ const ContactPage = () => {
                   className="space-y-6"
                 >
                   <input
-                    type="text"
+                    type="name"
                     name="name"
                     className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500"
                     placeholder="Your Name"

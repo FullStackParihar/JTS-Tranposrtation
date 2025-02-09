@@ -75,7 +75,7 @@ const ContactPage = () => {
                   <div className="flex items-center group">
                     <FaPhoneAlt className="mr-3 text-purple-700" />
                     <span className="text-gray-800 font-medium">
-                      +91 811886
+                      +91 8118867247
                     </span>
                   </div>
                   <div className="flex items-center group">

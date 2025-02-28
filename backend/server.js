@@ -1,18 +1,33 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;  
 
 app.use(express.json());
 app.use(cors());
 
-// check if env variables are loaded
-console.log("email:", process.env.EMAIL_USER);
+// Connect to MongoDB (JTS-ClientForm database)
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log("MongoDB Connected"))
+    .catch(err => console.error("MongoDB Connection Error:", err));
 
-// nodemailer setup
+
+// Define Schema for contacts collection
+const contactSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    message: String,
+    createdAt: { type: Date, default: Date.now }
+});
+
+// Create model for contacts collection
+const Contact = mongoose.model("Contact", contactSchema, "contacts");
+
+// Nodemailer setup
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -20,30 +35,37 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS,
     },
 });
+
 app.get("/", (req, res) => {
     res.send("Server is running!");
 });
 
-
+// Store Data in MongoDB & Send Email
 app.post("/send", async (req, res) => {
     const { name, email, message } = req.body;
 
     if (!name || !email || !message) {
-        return res.status(400).json({ error: "all fields are required" });
+        return res.status(400).json({ error: "All fields are required" });
     }
 
     try {
+        // Save to MongoDB (Database: JTS-ClientForm, Collection: contacts)
+        const newContact = new Contact({ name, email, message });
+        await newContact.save();
+
+        // Send email notification
         await transporter.sendMail({
             from: `"${name}" <${process.env.EMAIL_USER}>`,
-            to: "vishnuparihar239925@gmail.com", // replace with your email
-            subject: "new contact form submission",
-            text: `name: ${name}\nemail: ${email}\nmessage: ${message}`,
+            to: "vishnuparihar239925@gmail.com",
+            subject: "New Contact Form Submission",
+            text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
         });
-        res.status(200).json({ success: "message sent successfully!" });
+
+        res.status(200).json({ success: "Message saved and email sent!" });
     } catch (error) {
-        console.error("email error:", error);
-        res.status(500).json({ error: error.message });
+        console.error("Error:", error);
+        res.status(500).json({ error: "Server error" });
     }
 });
 
-app.listen(PORT, () => console.log(`server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

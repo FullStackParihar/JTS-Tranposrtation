@@ -6,6 +6,7 @@ import { useToggle } from "../Context/ToggleContext";
 
 import { FaTruck, FaClock, FaShieldAlt, FaMapMarkedAlt } from "react-icons/fa";
 import TrucksData from './../utility/TruckData';
+import Card from '../components/SWaper';
 
 const HomePage = () => {
     const { toggle, toggleValue } = useToggle();
@@ -37,7 +38,7 @@ const HomePage = () => {
 
             const data = await res.json();
             alert(data.success || data.error);
-            
+
         } catch (error) {
             alert("Something went wrong");
         } finally {
@@ -45,7 +46,7 @@ const HomePage = () => {
         }
     };
 
-    
+
     return (
         <div>
             <div id='mainbg' className='relative flex items-center justify-start bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] h-[38rem] sm:h-[34rem] xs:h-[28rem]'>
@@ -67,6 +68,8 @@ const HomePage = () => {
                     </button>
                 </div>
             </div>
+
+            {/* <Card/> */}
 
             <div id="service" className='py-12 bg- text-[#374151] px-4 sm:px-6'>
                 <div className='max-w-7xl mx-auto text-center'>
@@ -146,7 +149,7 @@ const HomePage = () => {
                 </div>
             </div>
 
-{/* client reviews */}
+            {/* client reviews */}
             <section className="bg-[#6A1B9A] py-6 text-white text-center">
                 <h2 className="text-3xl font-bold text-[#FFFFFF]">What Our Clients Say</h2>
                 <div className="mt-6 grid md:grid-cols-2 gap-8 px-4 max-w-4xl mx-auto">
@@ -161,45 +164,45 @@ const HomePage = () => {
                 </div>
             </section>
             <section className="py-8 bg-[#6A1B9A] text-white text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold">Get in Touch</h2>
-            <p className="mt-4 text-lg sm:text-xl">Have any questions or need a quote? Reach out to us!</p>
-            <form onSubmit={handleSubmit} className="mt-8 max-w-md sm:max-w-lg mx-auto px-4 sm:px-0">
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
-                    required
-                />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
-                    required
-                />
-                <textarea
-                    name="message"
-                    placeholder="Your Message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
-                    rows="4"
-                    required
-                ></textarea>
-                <button
-                    type="submit"
-                    disabled={loading}
-                    className="bg-[#F57C00] hover:bg-[#D65A00] text-white px-6 py-3 rounded-lg w-full sm:w-auto transition duration-300 disabled:opacity-50"
-                >
-                    {loading ? "Sending..." : "Send Message"}
-                </button>
-            </form>
-        </section>
+                <h2 className="text-3xl sm:text-4xl font-bold">Get in Touch</h2>
+                <p className="mt-4 text-lg sm:text-xl">Have any questions or need a quote? Reach out to us!</p>
+                <form onSubmit={handleSubmit} className="mt-8 max-w-md sm:max-w-lg mx-auto px-4 sm:px-0">
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Your Name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
+                        required
+                    />
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Your Email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
+                        required
+                    />
+                    <textarea
+                        name="message"
+                        placeholder="Your Message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
+                        rows="4"
+                        required
+                    ></textarea>
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="bg-[#F57C00] hover:bg-[#D65A00] text-white px-6 py-3 rounded-lg w-full sm:w-auto transition duration-300 disabled:opacity-50"
+                    >
+                        {loading ? "Sending..." : "Send Message"}
+                    </button>
+                </form>
+            </section>
 
 
 

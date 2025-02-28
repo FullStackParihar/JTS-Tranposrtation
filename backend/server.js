@@ -1,48 +1,41 @@
 require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
 const nodemailer = require("nodemailer");
 
-exports.handler = async (event) => {
-    if (event.httpMethod !== "POST") {
-        return {
-            statusCode: 405,
-            body: JSON.stringify({ error: "Method Not Allowed" }),
-        };
-    }
+const app = express();
+const PORT = process.env.PORT || 5000;
 
-    const { name, email, message } = JSON.parse(event.body);
+app.use(express.json());
+app.use(cors());
+
+// Nodemailer setup
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    },
+});
+
+app.post("/send", async (req, res) => {
+    const { name, email, message } = req.body;
 
     if (!name || !email || !message) {
-        return {
-            statusCode: 400,
-            body: JSON.stringify({ error: "All fields are required" }),
-        };
+        return res.status(400).json({ error: "All fields are required" });
     }
-
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-        },
-    });
 
     try {
         await transporter.sendMail({
-            from: `"${name}" <${process.env.EMAIL_USER}>`,
-            to: "vishnuparihar239925@gmail.com", // Replace with your email
+            from: process.env.EMAIL_USER,
+            to: "your-email@example.com", // Replace with your email
             subject: "New Contact Form Submission",
             text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
         });
-
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ success: "Message sent successfully!" }),
-        };
+        res.status(200).json({ success: "Message sent successfully!" });
     } catch (error) {
-        console.error("Email error:", error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: error.message }),
-        };
+        res.status(500).json({ error: "Failed to send message" });
     }
-};
+});
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

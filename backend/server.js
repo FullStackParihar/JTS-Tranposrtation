@@ -20,6 +20,10 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS,
     },
 });
+app.get("/", (req, res) => {
+    res.send("Server is running!");
+});
+
 
 app.post("/send", async (req, res) => {
     const { name, email, message } = req.body;

@@ -15,6 +15,37 @@ const HomePage = () => {
         const timer = setTimeout(() => setisLoaded(false), 1000);
         return () => clearTimeout(timer);
     }, []);
+
+
+    const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+    const [loading, setLoading] = useState(false);
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            const res = await fetch("http://localhost:5000/send", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await res.json();
+            alert(data.success || data.error);
+            
+        } catch (error) {
+            alert("Something went wrong");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    
     return (
         <div>
             <div id='mainbg' className='relative flex items-center justify-start bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] h-[38rem] sm:h-[34rem] xs:h-[28rem]'>
@@ -129,34 +160,46 @@ const HomePage = () => {
                     </div>
                 </div>
             </section>
-
             <section className="py-8 bg-[#6A1B9A] text-white text-center">
-                <h2 className="text-3xl sm:text-4xl font-bold">Get in Touch</h2>
-                <p className="mt-4 text-lg sm:text-xl">Have any questions or need a quote? Reach out to us!</p>
-                <form className="mt-8 max-w-md sm:max-w-lg mx-auto px-4 sm:px-0">
-                    <input
-                        type="text"
-                        placeholder="Your Name"
-                        className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
-                    />
-                    <input
-                        type="email"
-                        placeholder="Your Email"
-                        className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
-                    />
-                    <textarea
-                        placeholder="Your Message"
-                        className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
-                        rows="4"
-                    ></textarea>
-                    <button
-                        type="submit"
-                        className="bg-[#F57C00] hover:bg-[#D65A00] text-white px-6 py-3 rounded-lg w-full sm:w-auto transition duration-300"
-                    >
-                        Send Message
-                    </button>
-                </form>
-            </section>
+            <h2 className="text-3xl sm:text-4xl font-bold">Get in Touch</h2>
+            <p className="mt-4 text-lg sm:text-xl">Have any questions or need a quote? Reach out to us!</p>
+            <form onSubmit={handleSubmit} className="mt-8 max-w-md sm:max-w-lg mx-auto px-4 sm:px-0">
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
+                    required
+                />
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
+                    required
+                />
+                <textarea
+                    name="message"
+                    placeholder="Your Message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="p-4 w-full mb-4 rounded-lg text-[#212121] focus:outline-none focus:ring-2 focus:ring-[#F57C00] transition duration-300"
+                    rows="4"
+                    required
+                ></textarea>
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="bg-[#F57C00] hover:bg-[#D65A00] text-white px-6 py-3 rounded-lg w-full sm:w-auto transition duration-300 disabled:opacity-50"
+                >
+                    {loading ? "Sending..." : "Send Message"}
+                </button>
+            </form>
+        </section>
 
 
 

@@ -84,18 +84,18 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 if (process.env.NODE_ENV === 'development') {
   console.log('Running in development mode');
   // Uncomment to test email sending
-//   const testEmail = async () => {
-//     try {
-//       await transporter.sendMail({
-//         from: process.env.EMAIL_USER,
-//         to: process.env.RECIPIENT_EMAIL || process.env.EMAIL_USER,
-//         subject: 'Test Email',
-//         text: 'This is a test email from your server'
-//       });
-//       console.log('Test email sent successfully');
-//     } catch (error) {
-//       console.error('Test email failed:', error);
-//     }
-//   };
-//   testEmail();
+  const testEmail = async () => {
+    try {
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: process.env.RECIPIENT_EMAIL || process.env.EMAIL_USER,
+        subject: 'Test Email',
+        text: 'This is a test email from your server'
+      });
+      console.log('Test email sent successfully');
+    } catch (error) {
+      console.error('Test email failed:', error);
+    }
+  };
+  testEmail();
 }

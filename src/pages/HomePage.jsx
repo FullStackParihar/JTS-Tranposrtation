@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../pages/mainbg.css'
 import { Link } from 'react-router-dom';
 import { useToggle } from "../Context/ToggleContext";
-
+import Button from '../components/Botton';
 
 import { FaTruck, FaClock, FaShieldAlt, FaMapMarkedAlt } from "react-icons/fa";
 import TrucksData from './../utility/TruckData';
@@ -47,6 +47,11 @@ const HomePage = () => {
     };
 
 
+    const handleClick = () => {
+        alert("Uiverse.io Button Clicked!");
+    };
+
+
     return (
         <div>
             <div id='mainbg' className='relative flex items-center justify-start bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] h-[38rem] sm:h-[34rem] xs:h-[28rem]'>
@@ -63,9 +68,8 @@ const HomePage = () => {
                 </div>
 
                 <div id="getbutton" className='absolute w-full bottom-4 flex justify-center'>
-                    <button className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] hover:bg-green-700 mt-4 text-white font-roboto px-6 py-3 xs:px-4 xs:py-2 text-base xs:text-sm rounded-lg">
-                        Get Service
-                    </button>
+                    <Button text="Get service" onClick={handleClick} />
+
                 </div>
             </div>
 
@@ -194,6 +198,7 @@ const HomePage = () => {
                         rows="4"
                         required
                     ></textarea>
+
                     <button
                         type="submit"
                         disabled={loading}

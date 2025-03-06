@@ -32,8 +32,8 @@ const StyledWrapper = styled.div`
   }
 
   button::before,
-  button::after {
-    content: "";
+  button::after { 
+    content: ""; 
     position: absolute;
     top: 0;
     width: 0;

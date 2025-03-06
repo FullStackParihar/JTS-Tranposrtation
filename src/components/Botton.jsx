@@ -33,7 +33,7 @@ const StyledWrapper = styled.div`
 
   button::before,
   button::after { 
-    content: ""; 
+    content: "";
     position: absolute;
     top: 0;
     width: 0;

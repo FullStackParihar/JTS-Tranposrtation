@@ -48,7 +48,7 @@ const StyledWrapper = styled.div`
     left: -10px;
     background: #240046;
   }
-
+ 
   button::after {
     right: 0px;
     background: #F57C00;

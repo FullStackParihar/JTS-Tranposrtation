@@ -70,11 +70,12 @@ function Header() {
             aria-label="Open menu"
             onClick={() => setIsToggled((prev) => !prev)}
           >
-            <FaBars className="text-4xl text-gray-800" />
+            <FaBars className="text-4xl text-[#6A1B9A]" />
           </button>
 
           {/* Mobile Menu */}
           <div
+          id='menubar'
             ref={menuRef}
             className={`absolute right-0 top-14 w-48 bg-white shadow-lg rounded-lg z-50 transition-transform duration-300 ease-in-out ${isToggled ? 'scale-100' : 'scale-0'
               }`}

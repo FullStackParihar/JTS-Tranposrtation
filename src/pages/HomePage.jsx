@@ -58,10 +58,10 @@ const HomePage = () => {
                 {/* image section */}
                 <div className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 flex items-center justify-center p-8 sm:p-6 xs:p-4'>
                     <div className='text-center'>
-                        <h1 className='text-[2rem] sm:text-[2rem] xs:text-[1.5rem] font-extrabold font-barlow text-[#FFFFFF]'>
+                        <h1 className='text-[2rem] sm:text-[3rem] xs:text-[1.5rem] font-extrabold font-barlow text-[#FFFFFF]'>
                             Reliable Bulk Milk Transportation
                         </h1>
-                        <p className='mt-4 text-lg sm:text-base xs:text-sm font-semibold text-[#FFFFFF]'>
+                        <p className='mt-4 text-lg sm:text-lg xs:text-sm font-semibold text-[#FFFFFF]'>
                             Delivering fresh milk products safely across cities with our cold-chain logistics
                         </p>
                     </div>
@@ -75,7 +75,7 @@ const HomePage = () => {
 
             {/* <Card/> */}
 
-            <div id="service" className='py-12 bg- text-[#374151] px-4 sm:px-6'>
+            <div className='py-12 bg- text-[#374151] px-4 sm:px-6'>
                 <div className='max-w-7xl mx-auto text-center'>
                     <h2 className="text-[#1E293B] font-poppins text-4xl sm:text-3xl xs:text-2xl font-bold">Our Services</h2>
                     <p className='text-lg sm:text-base xs:text-sm text-[#374151] mt-2'>We provide a range of milk transportation solutions.</p>
@@ -92,7 +92,7 @@ const HomePage = () => {
                         ))
 
                         : TrucksData.map((truck) => (
-                            <Link key={truck.id} to={`/product/${truck.id}`} className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
+                            <Link key={truck.id} to={`/product/${truck.id}`} id="service" className='p-8 border rounded-lg shadow-lg hover:shadow-2xl'>
                                 <h3 className='text-4xl sm:text-xl xs:text-lg font-bold text-[#0070F3]'>{truck.title}</h3>
                                 <p className='text-[#374151] mt-2 text-sm xs:text-xs'>{truck.description}</p>
                                 <img className='p-12 sm:p-8 xs:p-4' src={truck.image} alt={truck.title} />
@@ -102,7 +102,7 @@ const HomePage = () => {
                 </div>
             </div>
 
-            <div className="mb-16 flex flex-col px-4 md:flex-row items-center justify-center gap-10">
+            <div id='delivery' className="mb-16 flex flex-col px-4 md:flex-row items-center justify-center gap-10">
                 <div className="bg-white shadow-lg rounded-2xl border-4 border-[#6A1B9A] p-6 max-w-md text-center transform transition duration-500 hover:scale-105 hover:shadow-2xl">
                     <img
                         src="https://img.freepik.com/free-vector/cargo-vehicle-fast-delivery-realistic-composition_1284-19144.jpg?t=st=1737832571~exp=1737836171~hmac=8ce089e70f91254447ce3b72b364bf6edd5b148bfcc2b37c3a86681fbb3ba7b9&w=740"
@@ -118,7 +118,7 @@ const HomePage = () => {
                     </p>
                 </div>
                 {/* fast delivery card */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-2 max-w-lg">
+                <div id='delivery' className="grid grid-cols-1 md:grid-cols-2 gap-6 px-2 max-w-lg">
                     <div className="bg-[#6A1B9A] text-white p-5 rounded-2xl flex items-center space-x-4 shadow-lg">
                         <FaTruck size={50} className="text-[#F57C00]" />
                         <div>
@@ -127,7 +127,7 @@ const HomePage = () => {
                         </div>
                     </div>
 
-                    <div className="bg-[#6A1B9A] text-white p-5 rounded-2xl flex items-center space-x-4 shadow-lg">
+                    <div id='delivery' className="bg-[#6A1B9A] text-white p-5 rounded-2xl flex items-center space-x-4 shadow-lg">
                         <FaClock size={50} className="text-[#F57C00]" />
                         <div>
                             <h3 className="text-xl font-bold">On-Time Delivery</h3>
@@ -135,7 +135,7 @@ const HomePage = () => {
                         </div>
                     </div>
 
-                    <div className="bg-[#6A1B9A] text-white p-5 rounded-2xl flex items-center space-x-4 shadow-lg">
+                    <div id='delivery' className="bg-[#6A1B9A] text-white p-5 rounded-2xl flex items-center space-x-4 shadow-lg">
                         <FaMapMarkedAlt size={50} className="text-[#F57C00]" />
                         <div>
                             <h3 className="text-xl font-bold">Efficient Routing</h3>
@@ -143,7 +143,7 @@ const HomePage = () => {
                         </div>
                     </div>
 
-                    <div className="bg-[#6A1B9A] text-white p-5 rounded-2xl flex items-center space-x-4 shadow-lg">
+                    <div id='delivery' className="bg-[#6A1B9A] text-white p-5 rounded-2xl flex items-center space-x-4 shadow-lg">
                         <FaShieldAlt size={50} className="text-[#F57C00]" />
                         <div>
                             <h3 className="text-xl font-bold">Secure Transport</h3>
@@ -154,24 +154,25 @@ const HomePage = () => {
             </div>
 
             {/* client reviews */}
-            <section className="bg-[#6A1B9A] py-6 text-white text-center">
+            <section id='delivery' className="bg-[#6A1B9A] py-6 text-white text-center">
                 <h2 className="text-3xl font-bold text-[#FFFFFF]">What Our Clients Say</h2>
-                <div className="mt-6 grid md:grid-cols-2 gap-8 px-4 max-w-4xl mx-auto">
+                <div id='delivery' className="mt-6 grid md:grid-cols-2 gap-8 px-4 max-w-4xl mx-auto">
                     <div className="p-6 bg-[#F57C00] text-white rounded-lg shadow-lg">
                         <p className="text-lg">"Excellent service and on-time deliveries! Highly recommended."</p>
                         <p className="mt-2 font-bold text-[#212121]">- D mart Ltd.</p>
                     </div>
-                    <div className="p-6 bg-[#F57C00] text-white rounded-lg shadow-lg">
+                    <div id='delivery' className="p-6 bg-[#F57C00] text-white rounded-lg shadow-lg">
                         <p className="text-lg">"Their cold-chain logistics are top-notch. Fresh milk every time!"</p>
                         <p className="mt-2 font-bold text-[#212121]">- keventer icecream Pvt Ltd.</p>
                     </div>
                 </div>
             </section>
-            <section className="py-8 bg-[#6A1B9A] text-white text-center">
+            <section id='delivery' className="py-8 bg-[#6A1B9A] text-white text-center">
                 <h2 className="text-3xl sm:text-4xl font-bold">Get in Touch</h2>
                 <p className="mt-4 text-lg sm:text-xl">Have any questions or need a quote? Reach out to us!</p>
                 <form onSubmit={handleSubmit} className="mt-8 max-w-md sm:max-w-lg mx-auto px-4 sm:px-0">
                     <input
+                    id='delivery'
                         type="text"
                         name="name"
                         placeholder="Your Name"
@@ -181,6 +182,7 @@ const HomePage = () => {
                         required
                     />
                     <input
+                    id='delivery'
                         type="email"
                         name="email"
                         placeholder="Your Email"
@@ -190,6 +192,7 @@ const HomePage = () => {
                         required
                     />
                     <textarea
+                    id='delivery'
                         name="message"
                         placeholder="Your Message"
                         value={formData.message}
@@ -200,6 +203,7 @@ const HomePage = () => {
                     ></textarea>
 
                     <button
+                    id='delivery'
                         type="submit"
                         disabled={loading}
                         className="bg-[#F57C00] hover:bg-[#D65A00] text-white px-6 py-3 rounded-lg w-full sm:w-auto transition duration-300 disabled:opacity-50"
@@ -211,10 +215,10 @@ const HomePage = () => {
 
 
 
-            <section className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] py-12 sm:py-8 xs:py-6 text-center text-white px-4">
+            <section id='delivery' className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] py-12 sm:py-8 xs:py-6 text-center text-white px-4">
                 <h2 className="text-3xl sm:text-2xl xs:text-xl font-bold">Ready to Transport with Us?</h2>
                 <p className="mt-4 sm:mt-2 xs:mt-1 text-lg sm:text-base xs:text-sm">Get in touch and request a quote today.</p>
-                <a href="#quote" className="mt-6 inline-block bg-[#FFD700] text-[#002B5B] font-semibold px-8 sm:px-6 xs:px-4 py-3 sm:py-2 xs:py-1 rounded-lg hover:bg-[#FFECB3]">
+                <a href="#quote" id='delivery' className="mt-6 inline-block bg-[#FFD700] text-[#002B5B] font-semibold px-8 sm:px-6 xs:px-4 py-3 sm:py-2 xs:py-1 rounded-lg hover:bg-[#FFECB3]">
                     Request a Quote
                 </a>
             </section>
@@ -228,7 +232,7 @@ const HomePage = () => {
             </section>
 
 
-            <footer className="bg-[#0A2540] text-[#F4F4F4] py-8 sm:py-6 xs:py-4 px-4">
+            <footer  className="bg-[#0A2540] text-[#F4F4F4] py-8 sm:py-6 xs:py-4 px-4">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row sm:flex-col xs:flex-col justify-between">
                     <div className="text-center sm:text-left">
                         <h3 className="text-lg font-bold text-white">Jagdamba Transport Services</h3>

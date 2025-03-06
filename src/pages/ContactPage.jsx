@@ -62,7 +62,7 @@ const ContactPage = () => {
               </h1>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-4">
+            <div id='delivery' className="grid grid-cols-1 md:grid-cols-2 gap-8 p-4">
               <div className="bg-white p-16 rounded-2xl shadow-2xl transform transition-all hover:scale-105">
                 <h2 className="text-3xl font-semibold text-gray-800 mb-6 flex items-center">
                   <FaPhoneAlt className="mr-3 text-orange-500" /> Get in Touch
@@ -93,7 +93,7 @@ const ContactPage = () => {
                 </div>
               </div>
 
-              <div className="bg-white p-16 rounded-2xl shadow-2xl transform transition-all hover:scale-105">
+              <div id='delivery' className="bg-white p-16 rounded-2xl shadow-2xl transform transition-all hover:scale-105">
                 <h2 className="text-3xl font-semibold text-gray-800 mb-6 flex items-center">
                   <FaPaperPlane className="mr-3 text-orange-500" /> Send Us a
                   Message
@@ -108,7 +108,7 @@ const ContactPage = () => {
                   onSubmit={handleSubmit}
                   className="space-y-6"
                 >
-                  <input
+                  <input id='delivery'
                     type="name"
                     name="name"
                     className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500"
@@ -117,7 +117,7 @@ const ContactPage = () => {
                     onChange={handleChange}
                     required
                   />
-                  <input
+                  <input id='delivery'
                     type="email"
                     name="email"
                     className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500"
@@ -126,7 +126,7 @@ const ContactPage = () => {
                     onChange={handleChange}
                     required
                   />
-                  <textarea
+                  <textarea id='delivery'
                     name="message"
                     rows="5"
                     className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500"
@@ -135,7 +135,7 @@ const ContactPage = () => {
                     onChange={handleChange}
                     required
                   ></textarea>
-                  <button
+                  <button id='delivery'
                     type="submit"
                     className="bg-purple-700 text-white py-3 px-6 rounded-lg hover:bg-purple-600 focus:ring-2 flex focus:ring-purple-500 transform transition-all hover:scale-105"
                   >

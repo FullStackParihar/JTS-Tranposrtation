@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import fleetData from "../utility/FleetData";
 import { FaTruck, FaSearch, FaQuoteLeft, FaMapMarkerAlt } from "react-icons/fa";
-
+import '../pages/mainbg.css'
 const Fleet = () => {
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -42,7 +42,7 @@ const Fleet = () => {
                 filteredFleetData.map((vehicle) => (
                     <div
                         
-                        className="bg-[#F57C00] shadow-lg rounded-3xl overflow-hidden animate-pulse border-4 border-[#6A1B9A] transform transition duration-500 hover:scale-105 hover:shadow-2xl"
+                         className="bg-[#F57C00] shadow-lg rounded-3xl overflow-hidden animate-pulse border-4 border-[#6A1B9A] transform transition duration-500 hover:scale-105 hover:shadow-2xl"
                     >
                         <img  className="w-full h-60 object-cover" />
                         <div className="p-6 bg-white h-44 rounded-b-2xl">
@@ -54,7 +54,7 @@ const Fleet = () => {
                 ))
 
                : filteredFleetData.map((vehicle) => (
-                    <div
+                    <div id='delivery'
                         key={vehicle.id}
                         className="bg-[#F57C00] shadow-lg rounded-3xl overflow-hidden border-4 border-[#6A1B9A] transform transition duration-500 hover:scale-105 hover:shadow-2xl"
                     >
@@ -71,14 +71,14 @@ const Fleet = () => {
             {/* Customer Testimonials */}
             <div className="mt-12 bg-[#7325a4] shadow-lg text-white py-10 px-5 rounded-lg">
                 <h2 className="text-3xl font-semibold text-center mb-6">What Our Clients Say</h2>
-                <div className="flex flex-wrap justify-center gap-8">
+                <div id='delivery' className="flex flex-wrap justify-center gap-8">
                     <div className="max-w-xs bg-white text-[#6A1B9A] rounded-lg p-6 shadow-lg">
                         <p className="text-lg italic mb-4">
                             "The service was prompt and professional! We trust Jagdamba Transport for all our bulk milk shipments."
                         </p>
                         <p className="font-semibold">Ravi S., Dairy Supplier</p>
                     </div>
-                    <div className="max-w-xs bg-white text-[#6A1B9A] rounded-lg p-6 shadow-lg">
+                    <div id='delivery' className="max-w-xs bg-white text-[#6A1B9A] rounded-lg p-6 shadow-lg">
                         <p className="text-lg italic mb-4">
                             "Excellent fleet management and reliable services every time! Highly recommend."
                         </p>
@@ -88,27 +88,27 @@ const Fleet = () => {
             </div>
 
             {/* Call to Action Section */}
-            <div className="mt-12 bg-[#212121] text-white py-10 px-5 rounded-lg text-center">
+            <div id='delivery' className="mt-12 bg-[#212121] text-white py-10 px-5 rounded-lg text-center">
                 <h2 className="text-3xl font-semibold mb-6">Ready to Ship?</h2>
                 <p className="text-lg mb-6">Contact us today to book your next bulk milk transportation service. Our fleet is ready to handle your needs.</p>
-                <button className="bg-[#F57C00] text-[#6A1B9A] px-6 py-3 rounded-lg shadow-lg transition duration-300 hover:bg-[#6A1B9A] hover:text-white">
+                <button id='delivery' className="bg-[#F57C00] text-[#6A1B9A] px-6 py-3 rounded-lg shadow-lg transition duration-300 hover:bg-[#6A1B9A] hover:text-white">
                     Get a Quote <FaQuoteLeft className="inline-block ml-2" />
                 </button>
             </div>
 
             {/* Track Your Vehicle Section */}
-            <div className="mt-12 bg-white text-[#6A1B9A] py-10 px-5 rounded-lg">
+            <div id='delivery' className="mt-12 bg-white text-[#6A1B9A] py-10 px-5 rounded-lg">
                 <h2 className="text-3xl font-semibold text-center mb-6">Track Your Vehicle</h2>
                 <p className="text-lg text-center mb-6">
                     Stay updated with the status of your transport. Enter your vehicle ID to track your shipment. Powered by Weelseye for live tracking.
                 </p>
                 <div className="flex justify-center">
-                    <input
+                    <input id='delivery'
                         type="text"
                         placeholder="Enter Vehicle ID"
                         className="py-2 px-6 border-2 border-[#6A1B9A] rounded-lg mr-4"
                     />
-                    <button className="bg-[#F57C00] text-white px-6 py-2 rounded-lg shadow-lg">
+                    <button id='delivery' className="bg-[#F57C00] text-white px-6 py-2 rounded-lg shadow-lg">
                         Track <FaMapMarkerAlt className="inline-block ml-2" />
                     </button>
                 </div>

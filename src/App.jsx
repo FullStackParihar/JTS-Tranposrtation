@@ -15,7 +15,7 @@ function App() {
         <div className='relative'>
           <div className='sticky top-0 z-10'>
             <Header />
-          </div> 
+          </div>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/services" element={<ServicesPage />} />

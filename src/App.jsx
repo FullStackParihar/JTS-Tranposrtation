@@ -15,7 +15,7 @@ function App() {
         <div className='relative'>
           <div className='sticky top-0 z-10'>
             <Header />
-          </div>
+          </div> 
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/services" element={<ServicesPage />} />
@@ -23,7 +23,7 @@ function App() {
             <Route path="/fleet" element={<FleetPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/product/:id" element={<ProductDetailPage />} />
-            </Routes>
+          </Routes>
         </div>
       </BrowserRouter>
     </ToggleProvider>

@@ -52,6 +52,33 @@ const HomePage = () => {
     };
 
 
+    const handleQuotationRequest = async () => {
+        const response = await fetch("http://localhost:5000/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: "User Name",
+                quantity: 1000,
+                email: "user@example.com"
+            })
+        });
+    
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "JTS_Quotation.pdf";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } else {
+            alert("Failed to generate quotation");
+        }
+    };
+    
+
+
     return (
         <div>
             <div id='mainbg' className='relative flex items-center justify-start bg-gradient-to-r from-[#FF6B6B] to-[#FFA07A] h-[38rem] sm:h-[34rem] xs:h-[28rem]'>
@@ -218,9 +245,9 @@ const HomePage = () => {
             <section id='delivery' className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] py-12 sm:py-8 xs:py-6 text-center text-white px-4">
                 <h2 className="text-3xl sm:text-2xl xs:text-xl font-bold">Ready to Transport with Us?</h2>
                 <p className="mt-4 sm:mt-2 xs:mt-1 text-lg sm:text-base xs:text-sm">Get in touch and request a quote today.</p>
-                <a href="#quote" id='delivery' className="mt-6 inline-block bg-[#FFD700] text-[#002B5B] font-semibold px-8 sm:px-6 xs:px-4 py-3 sm:py-2 xs:py-1 rounded-lg hover:bg-[#FFECB3]">
+                <button onClick={handleQuotationRequest} href="#quote" id='delivery' className="mt-6 inline-block bg-[#FFD700] text-[#002B5B] font-semibold px-8 sm:px-6 xs:px-4 py-3 sm:py-2 xs:py-1 rounded-lg hover:bg-[#FFECB3]">
                     Request a Quote
-                </a>
+                </button>
             </section>
 
             <section className="bg-white py-16 text-center">

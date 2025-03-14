@@ -40,7 +40,7 @@ const StyledWrapper = styled.div`
     height: 100%;
     transform: skew(15deg);
     transition: all 0.5s;
-    overflow: hidden;
+    overflow: hidden;forword
     z-index: -1;
   }
 

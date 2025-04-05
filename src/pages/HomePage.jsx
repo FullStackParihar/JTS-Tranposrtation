@@ -181,8 +181,8 @@ const HomePage = () => {
             </div>
 
             {/* client reviews */}
-            <section id='delivery' className="bg-[#6A1B9A] py-6 text-white text-center">
-                <h2 className="text-3xl font-bold text-[#FFFFFF]">What Our Clients Say</h2>
+            <section  className="bg-[#6A1B9A] py-6 text-white text-center">
+                <h2 id='delivery' className="text-3xl font-bold text-[#FFFFFF]">What Our Clients Say</h2>
                 <div id='delivery' className="mt-6 grid md:grid-cols-2 gap-8 px-4 max-w-4xl mx-auto">
                     <div className="p-6 bg-[#F57C00] text-white rounded-lg shadow-lg">
                         <p className="text-lg">"Excellent service and on-time deliveries! Highly recommended."</p>
@@ -194,7 +194,7 @@ const HomePage = () => {
                     </div>
                 </div>
             </section>
-            <section id='delivery' className="py-8 bg-[#6A1B9A] text-white text-center">
+            <section   className="py-8 bg-[#6A1B9A] text-white text-center">
                 <h2 className="text-3xl sm:text-4xl font-bold">Get in Touch</h2>
                 <p className="mt-4 text-lg sm:text-xl">Have any questions or need a quote? Reach out to us!</p>
                 <form onSubmit={handleSubmit} className="mt-8 max-w-md sm:max-w-lg mx-auto px-4 sm:px-0">
@@ -242,7 +242,7 @@ const HomePage = () => {
 
 
 
-            <section id='delivery' className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] py-12 sm:py-8 xs:py-6 text-center text-white px-4">
+            <section   className="bg-gradient-to-r from-[#FF512F] to-[#DD2476] py-12 sm:py-8 xs:py-6 text-center text-white px-4">
                 <h2 className="text-3xl sm:text-2xl xs:text-xl font-bold">Ready to Transport with Us?</h2>
                 <p className="mt-4 sm:mt-2 xs:mt-1 text-lg sm:text-base xs:text-sm">Get in touch and request a quote today.</p>
                 <button onClick={handleQuotationRequest} href="#quote" id='delivery' className="mt-6 inline-block bg-[#FFD700] text-[#002B5B] font-semibold px-8 sm:px-6 xs:px-4 py-3 sm:py-2 xs:py-1 rounded-lg hover:bg-[#FFECB3]">

@@ -19,7 +19,7 @@ const HomePage = () => {
 
  
     const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false); 
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });

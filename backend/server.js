@@ -99,6 +99,10 @@ transporter.verify((error) => {
 // };
 
 // Routes
+app.get('/',(req,res)=>{
+  console.log('hello')
+  res.send('hello')
+})
 app.use('/api/auth', authRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/vehicles', vehicleRoutes);

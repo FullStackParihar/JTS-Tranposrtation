@@ -1,13 +1,15 @@
 {
-  "name": "my-project",
+  "name": "jagdamba-transport-services",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "backend": "cd backend && npm run dev",
+    "start:all": "concurrently \"npm run backend\" \"npm run dev\""
   },
   "dependencies": {
     "@react-google-maps/api": "^2.20.5",
@@ -15,6 +17,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-rate-limit": "^7.5.1",
     "framer-motion": "^12.0.5",
     "leaflet": "^1.9.4",
     "mongoose": "^8.12.1",
@@ -25,7 +28,8 @@
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^7.1.3",
     "react-typewriter-effect": "^1.1.0",
-    "styled-components": "^6.1.15"
+    "styled-components": "^6.1.15",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -33,6 +37,7 @@
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.0",
     "eslint": "^9.17.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",

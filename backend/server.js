@@ -6,7 +6,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import nodemailer from 'nodemailer';
-import jwt from 'jsonwebtoken';
+ 
 import { rateLimit } from 'express-rate-limit';
 import winston from 'winston';
 
@@ -80,23 +80,23 @@ transporter.verify((error) => {
 });
 
 // JWT Authentication Middleware
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+// const authenticateToken = (req, res, next) => {
+//   const authHeader = req.headers['authorization'];
+//   const token = authHeader && authHeader.split(' ')[1];
 
-  if (!token) {
-    return res.status(401).json({ error: 'Access denied. No token provided.' });
-  }
+//   if (!token) {
+//     return res.status(401).json({ error: 'Access denied. No token provided.' });
+//   }
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // Attach decoded user info to request
-    next();
-  } catch (error) {
-    logger.error('Invalid token:', error);
-    res.status(403).json({ error: 'Invalid token.' });
-  }
-};
+//   try {
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//     req.user = decoded; // Attach decoded user info to request
+//     next();
+//   } catch (error) {
+//     logger.error('Invalid token:', error);
+//     res.status(403).json({ error: 'Invalid token.' });
+//   }
+// };
 
 // Routes
 app.use('/api/auth', authRoutes);

@@ -48,7 +48,7 @@ const limiter = rateLimit({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: process.env.FRONTEND_URL || 'https://jts-tranposrtation1.onrender.com',
   credentials: true,
 }));
 app.use(limiter); // Apply rate limiting to all routes

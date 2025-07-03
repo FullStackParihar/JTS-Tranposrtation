@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { FaTruck, FaMapMarkerAlt, FaCalendarAlt, FaThermometerHalf } from 'react-icons/fa';
+import baseurl from '../utility/baseurl';
 
 const BookingForm = ({ onClose, onSuccess }) => {
   const { token } = useAuth();
@@ -141,7 +142,7 @@ const BookingForm = ({ onClose, onSuccess }) => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/bookings', {
+      const response = await fetch(`${baseurl}/api/bookings`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

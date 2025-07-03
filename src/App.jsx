@@ -30,7 +30,7 @@ function App() {
               <Route path="/product/:id" element={<ProductDetailPage />} />
             </Routes>
           </div>
-        </BrowserRouter>
+        </BrowserRouter>  
       </ToggleProvider>
     </AuthProvider>
   );

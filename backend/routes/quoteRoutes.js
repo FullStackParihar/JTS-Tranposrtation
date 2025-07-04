@@ -1,9 +1,12 @@
-const express = require('express');
+import express from 'express';
+import { calculateQuote, requestQuote } from '../controllers/quoteController.js';
+
 const router = express.Router();
-const quoteController = require('../controllers/quoteController');
-const authenticateToken = require('../middleware/auth'); // Assume this is where JWT middleware is defined
 
-// POST /api/quote - Generate and store a quotation
-router.post('/quote', authenticateToken, quoteController.generateQuote);
+// Quote calculation endpoint
+router.get('/calculate-quote', calculateQuote);
 
-module.exports = quoteRoutes;
+// Quote request endpoint
+router.post('/quote', requestQuote);
+
+export default router;

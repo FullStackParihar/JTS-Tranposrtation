@@ -2,4 +2,4 @@
 const baseurl = "https://jts-tranposrtation1.onrender.com"
 
 export default baseurl;
- 
+  

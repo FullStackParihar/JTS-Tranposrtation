@@ -10,6 +10,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CoveragePage from './pages/CoveragePage';
 import ProductDetailPage from './pages/ProductDetailPage';
+import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/product/:id" element={<ProductDetailPage />} />
+               <Route path="/admin" element={<AdminDashboard />} />
             </Routes>
           </div>
         </BrowserRouter>  

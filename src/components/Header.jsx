@@ -84,6 +84,7 @@ function Header() {
             <li><Link to="/coverage" className='hover:bg-[#6A1B9A] p-2 px-4 rounded-full hover:text-white duration-300'>Coverage</Link></li>
             <li><Link to="/fleet" className='hover:bg-[#6A1B9A] p-2 px-4 rounded-full hover:text-white'>Fleet</Link></li>
             <li><Link to="/contact" className='hover:bg-[#6A1B9A] p-2 px-4 rounded-full hover:text-white'>Contact</Link></li>
+            <li><Link to="/admin" className='hover:bg-[#6A1B9A] p-2 px-4 rounded-full hover:text-white'>Admin</Link></li>
           </ul>
 
           {/* Auth Section */}

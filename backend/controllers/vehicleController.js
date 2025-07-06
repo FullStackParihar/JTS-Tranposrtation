@@ -1,168 +1,184 @@
-import Vehicle from '../models/Vehicle.js';
-import Booking from '../models/Booking.js';
+ 
 
+// import Vehicle from '../models/Vehicle.js';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
+
+// // Fix __dirname for ES Modules
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+// // Get all vehicles
+// export const getVehicles = async (req, res) => {
+//   try {
+//     const vehicles = await Vehicle.find();
+//     res.status(200).json(vehicles);
+//   } catch (err) {
+//     console.error('Error fetching vehicles:', err);
+//     res.status(500).json({ error: 'Server error while fetching vehicles' });
+//   }
+// };
+
+// // Add a vehicle
+// export const addVehicle = async (req, res) => {
+//   try {
+//     const { number, type, capacity, wheels, year, registrationNumber, ownerContact } = req.body;
+//     // Validate required fields
+//     if (!number || !type || !capacity || !wheels || !year || !registrationNumber || !ownerContact) {
+//       return res.status(400).json({ error: 'All fields are required' });
+//     }
+
+//     let image = '';
+//     if (req.file) {
+//       image = `/uploads/${req.file.filename}`;
+//     }
+
+//     const vehicle = new Vehicle({
+//       number,
+//       type,
+//       capacity,
+//       wheels,
+//       year,
+//       registrationNumber,
+//       ownerContact,
+//       image
+//     });
+//     await vehicle.save();
+//     res.status(201).json(vehicle);
+//   } catch (err) {
+//     console.error('Error adding vehicle:', err);
+//     res.status(400).json({ error: 'Failed to add vehicle' });
+//   }
+// };
+
+// // Delete a vehicle
+// export const deleteVehicle = async (req, res) => {
+//   try {
+//     const deletedVehicle = await Vehicle.findByIdAndDelete(req.params.id);
+//     if (!deletedVehicle) {
+//       return res.status(404).json({ error: 'Vehicle not found' });
+//     }
+//     res.status(200).json({ message: 'Vehicle deleted successfully' });
+//   } catch (err) {
+//     console.error('Error deleting vehicle:', err);
+//     res.status(400).json({ error: 'Failed to delete vehicle' });
+//   }
+// };
+import Vehicle from '../models/Vehicle.js';
+import { v2 as cloudinary } from 'cloudinary';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import mongoose from 'mongoose';
+
+// Fix __dirname for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Get all vehicles
 export const getVehicles = async (req, res) => {
   try {
-    const { status, type, page = 1, limit = 10 } = req.query;
-    const query = {};
-    
-    if (status) query.status = status;
-    if (type) query.type = type;
+    const vehicles = await Vehicle.find();
+    res.status(200).json(vehicles);
+  } catch (err) {
+    console.error('Error fetching vehicles:', err);
+    res.status(500).json({ error: 'Server error while fetching vehicles' });
+  }
+};
 
-    const vehicles = await Vehicle.find(query)
-      .populate('driver', 'name phone')
-      .sort({ createdAt: -1 })
-      .limit(limit * 1)
-      .skip((page - 1) * limit);
+// Add a vehicle (Cloudinary upload)
+export const addVehicle = async (req, res) => {
+  try {
+    const { number, type, capacity, wheels, year, registrationNumber, ownerContact } = req.body;
+    console.log('Request body:', req.body);
 
-    const total = await Vehicle.countDocuments(query);
+    // Manual validation for required fields
+    if (!number || !type || !capacity || !wheels || !year || !registrationNumber || !ownerContact) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+    if (typeof number !== 'string' || number.trim() === '') {
+      return res.status(400).json({ error: 'Vehicle number must be a non-empty string' });
+    }
+    if (typeof type !== 'string' || type.trim() === '') {
+      return res.status(400).json({ error: 'Type must be a non-empty string' });
+    }
+    if (isNaN(capacity) || capacity <= 0) {
+      return res.status(400).json({ error: 'Capacity must be a positive number' });
+    }
+    if (isNaN(wheels) || wheels <= 0 || !Number.isInteger(Number(wheels))) {
+      return res.status(400).json({ error: 'Wheels must be a positive integer' });
+    }
+    if (isNaN(year) || year < 1900 || year > new Date().getFullYear() + 1) {
+      return res.status(400).json({ error: 'Year must be between 1900 and next year' });
+    }
+    if (typeof registrationNumber !== 'string' || registrationNumber.trim() === '') {
+      return res.status(400).json({ error: 'Registration number must be a non-empty string' });
+    }
+    if (typeof ownerContact !== 'string' || ownerContact.trim() === '') {
+      return res.status(400).json({ error: 'Owner contact must be a non-empty string' });
+    }
 
-    res.json({
-      success: true,
-      vehicles,
-      pagination: {
-        current: page,
-        pages: Math.ceil(total / limit),
-        total
+    // Validate file type and presence
+    console.log('req.file:', req.file); // Debug: Check if file is received
+    let image = 'https://res.cloudinary.com/your_cloud_name/image/upload/v1234567890/jts_vehicles/default.jpg'; // Default image URL
+    if (req.file) {
+      if (!['image/jpeg', 'image/png'].includes(req.file.mimetype)) {
+        return res.status(400).json({ error: 'Only JPG and PNG files are allowed' });
       }
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-export const createVehicle = async (req, res) => {
-  try {
-    const vehicle = await Vehicle.create(req.body);
-    res.status(201).json({
-      success: true,
-      message: 'Vehicle added successfully',
-      vehicle
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-export const updateVehicle = async (req, res) => {
-  try {
-    const vehicle = await Vehicle.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
-
-    if (!vehicle) {
-      return res.status(404).json({ error: 'Vehicle not found' });
-    }
-
-    res.json({ success: true, vehicle });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-export const getVehicleById = async (req, res) => {
-  try {
-    const vehicle = await Vehicle.findById(req.params.id)
-      .populate('driver', 'name phone email');
-
-    if (!vehicle) {
-      return res.status(404).json({ error: 'Vehicle not found' });
-    }
-
-    // Get current booking for this vehicle
-    const currentBooking = await Booking.findOne({
-      vehicle: vehicle._id,
-      status: { $in: ['assigned', 'in_transit'] }
-    }).populate('customer', 'name companyName');
-
-    res.json({ 
-      success: true, 
-      vehicle: {
-        ...vehicle.toObject(),
-        currentBooking
+      const result = await cloudinary.uploader.upload(req.file.path, { folder: 'jts_vehicles' });
+      console.log('Cloudinary upload result:', result); // Debug: Check upload result
+      if (!result.secure_url) {
+        throw new Error('Cloudinary upload failed to return a secure URL');
       }
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-export const updateVehicleLocation = async (req, res) => {
-  try {
-    const { latitude, longitude, address } = req.body;
-    const vehicle = await Vehicle.findById(req.params.id);
-
-    if (!vehicle) {
-      return res.status(404).json({ error: 'Vehicle not found' });
+      image = result.secure_url;
+    } else {
+      console.log('No file uploaded, using default image');
     }
 
-    vehicle.currentLocation = {
-      latitude,
-      longitude,
-      address,
-      lastUpdated: new Date()
-    };
-
+    const vehicle = new Vehicle({
+      number,
+      type,
+      capacity: Number(capacity),
+      wheels: Number(wheels),
+      year: Number(year),
+      registrationNumber,
+      ownerContact,
+      image,
+    });
     await vehicle.save();
 
-    // Update tracking for active bookings
-    await Booking.updateMany(
-      { vehicle: vehicle._id, status: { $in: ['assigned', 'in_transit'] } },
-      {
-        $set: {
-          'tracking.currentLocation': {
-            latitude,
-            longitude,
-            timestamp: new Date()
-          }
-        },
-        $push: {
-          'tracking.route': {
-            latitude,
-            longitude,
-            timestamp: new Date()
-          }
-        }
-      }
-    );
-
-    res.json({ success: true, vehicle });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(201).json(vehicle);
+  } catch (err) {
+    console.error('Error adding vehicle:', err);
+    if (err.name === 'CloudinaryError') {
+      return res.status(400).json({ error: 'Failed to upload image to Cloudinary' });
+    }
+    if (err.message === 'Cloudinary upload failed to return a secure URL') {
+      return res.status(400).json({ error: 'Failed to process image upload' });
+    }
+    res.status(400).json({ error: 'Failed to add vehicle' });
   }
 };
 
-export const getVehicleStats = async (req, res) => {
+// Delete a vehicle
+export const deleteVehicle = async (req, res) => {
   try {
-    const stats = await Vehicle.aggregate([
-      {
-        $group: {
-          _id: '$status',
-          count: { $sum: 1 }
-        }
-      }
-    ]);
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ error: 'Invalid vehicle ID' });
+    }
 
-    const typeStats = await Vehicle.aggregate([
-      {
-        $group: {
-          _id: '$type',
-          count: { $sum: 1 }
-        }
-      }
-    ]);
+    const deletedVehicle = await Vehicle.findByIdAndDelete(req.params.id);
+    if (!deletedVehicle) {
+      return res.status(404).json({ error: 'Vehicle not found' });
+    }
 
-    res.json({
-      success: true,
-      stats: {
-        byStatus: stats,
-        byType: typeStats,
-        total: await Vehicle.countDocuments()
-      }
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    if (deletedVehicle.image && !deletedVehicle.image.includes('default.jpg')) {
+      const publicId = deletedVehicle.image.split('/').pop().split('.')[0];
+      await cloudinary.uploader.destroy(`jts_vehicles/${publicId}`);
+    }
+
+    res.status(200).json({ message: 'Vehicle deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting vehicle:', err);
+    res.status(400).json({ error: 'Failed to delete vehicle' });
   }
 };

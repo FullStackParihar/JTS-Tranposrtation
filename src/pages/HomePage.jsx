@@ -301,7 +301,7 @@ const HomePage = () => {
                   onChange={handleChange}
                   className="p-3 w-full text-black mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00] bg-gray-100"
                   required
-                  readOnly
+            
                 />
                 <input
                   type="email"
@@ -311,7 +311,7 @@ const HomePage = () => {
                   onChange={handleChange}
                   className="p-3 w-full text-black mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00] bg-gray-100"
                   required
-                  readOnly
+                  
                 />
                 <input
                   type="tel"

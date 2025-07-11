@@ -2,6 +2,7 @@ import express from 'express';
 import {
   createBooking,
   getBookings,
+  updateBooking,
   getBookingById,
   updateBookingStatus,
   assignDriver
@@ -18,6 +19,7 @@ router.route('/')
 
 router.get('/:id', getBookingById);
 router.put('/:id/status', updateBookingStatus);
-router.put('/:id/assign', authorize('admin', 'manager'), assignDriver);
+router.put('/:id/assign',   assignDriver);
+router.put('/:id', updateBooking);
 
 export default router;

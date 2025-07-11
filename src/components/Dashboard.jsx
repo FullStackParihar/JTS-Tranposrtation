@@ -1,5 +1,6 @@
  
 
+
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { 
@@ -14,21 +15,35 @@ import {
   FaFilter,
   FaThermometerHalf,
   FaCalendarAlt,
-  FaDollarSign
+  FaDollarSign,
+  FaUserCheck
 } from 'react-icons/fa';
 import baseurl from '../utility/baseurl';
+import { debounce } from 'lodash';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Dashboard = () => {
   const { user, token } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
   const [showBookingForm, setShowBookingForm] = useState(false);
+  const [showEditBookingForm, setShowEditBookingForm] = useState(false);
   const [showQuoteForm, setShowQuoteForm] = useState(false);
+  const [showAssignDriverForm, setShowAssignDriverForm] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
   const [bookings, setBookings] = useState([]);
+  const [drivers, setDrivers] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
+  const [assignFormData, setAssignFormData] = useState({ driverId: '', vehicleId: '' });
   const [stats, setStats] = useState({});
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [quote, setQuote] = useState(null);
+  const [geoLoading, setGeoLoading] = useState({ pickup: false, delivery: false });
+  const [suggestions, setSuggestions] = useState({ pickup: [], delivery: [] });
+  const [error, setError] = useState({ pickup: '', delivery: '' });
+  const [formLoading, setFormLoading] = useState(false);
 
   // Booking Form State
   const [formData, setFormData] = useState({
@@ -74,14 +89,12 @@ const Dashboard = () => {
     scheduledDate: new Date().toISOString().split('T')[0],
   });
 
-  const [geoLoading, setGeoLoading] = useState({ pickup: false, delivery: false });
-  const [suggestions, setSuggestions] = useState({ pickup: [], delivery: [] });
-  const [error, setError] = useState({ pickup: '', delivery: '' });
-  const [formLoading, setFormLoading] = useState(false);
-
   useEffect(() => {
     fetchDashboardData();
-  }, []);
+    if (['admin', 'manager'].includes(user?.role)) {
+      fetchDriversAndVehicles();
+    }
+  }, [user?.role]);
 
   const fetchDashboardData = async () => {
     try {
@@ -97,26 +110,60 @@ const Dashboard = () => {
       if (bookingsRes.ok) {
         const bookingsData = await bookingsRes.json();
         setBookings(bookingsData.bookings);
+      } else {
+        throw new Error('Failed to fetch bookings');
       }
 
       if (statsRes.ok) {
         const statsData = await statsRes.json();
         setStats(statsData.stats);
+      } else {
+        throw new Error('Failed to fetch stats');
       }
     } catch (error) {
-      console.error('Error fetching dashboard data:', error);
+      toast.error('Error fetching dashboard data: ' + error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchCoordinates = async (address, locationType) => {
+  const fetchDriversAndVehicles = async () => {
+    try {
+      const [driversRes, vehiclesRes] = await Promise.all([
+        fetch(`${baseurl}/api/drivers`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }),
+        fetch(`${baseurl}/api/vehicles`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
+      ]);
+
+      if (driversRes.ok) {
+        const driversData = await driversRes.json();
+        setDrivers(driversData.drivers);
+      } else {
+        throw new Error('Failed to fetch drivers');
+      }
+
+      if (vehiclesRes.ok) {
+        const vehiclesData = await vehiclesRes.json();
+        setVehicles(vehiclesData);
+      } else {
+        throw new Error('Failed to fetch vehicles');
+      }
+      console.log('vehicles', vehicles);
+    } catch (error) {
+      toast.error('Error fetching drivers/vehicles: ' + error.message);
+    }
+  };
+
+  const fetchCoordinates = debounce(async (address, locationType, isEditForm = false) => {
     const key = locationType === 'pickupLocation' ? 'pickup' : 'delivery';
     setGeoLoading(prev => ({ ...prev, [key]: true }));
     setError(prev => ({ ...prev, [key]: '' }));
     try {
       const response = await fetch(
-        `https://us1.locationiq.com/v1/search.php?key=YOUR_NEW_API_KEY&q=${encodeURIComponent(address)}&format=json`
+        `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${encodeURIComponent(address)}&format=json`
       );
       if (!response.ok) {
         if (response.status === 401) throw new Error('Invalid API key');
@@ -125,23 +172,32 @@ const Dashboard = () => {
       const data = await response.json();
       if (data && data.length > 0) {
         const { lat, lon } = data[0];
-        setFormData(prev => ({
-          ...prev,
-          [locationType]: {
-            ...prev[locationType],
-            coordinates: { latitude: parseFloat(lat), longitude: parseFloat(lon) }
-          }
-        }));
+        if (isEditForm) {
+          setSelectedBooking(prev => ({
+            ...prev,
+            [locationType]: {
+              ...prev[locationType],
+              coordinates: { latitude: parseFloat(lat), longitude: parseFloat(lon) }
+            }
+          }));
+        } else {
+          setFormData(prev => ({
+            ...prev,
+            [locationType]: {
+              ...prev[locationType],
+              coordinates: { latitude: parseFloat(lat), longitude: parseFloat(lon) }
+            }
+          }));
+        }
       } else {
         setError(prev => ({ ...prev, [key]: 'No coordinates found for this address' }));
       }
     } catch (error) {
-      console.error(`Error fetching coordinates for ${locationType}:`, error);
       setError(prev => ({ ...prev, [key]: error.message }));
     } finally {
       setGeoLoading(prev => ({ ...prev, [key]: false }));
     }
-  };
+  }, 300);
 
   const fetchSuggestions = async (query, locationType) => {
     const key = locationType === 'pickupLocation' ? 'pickup' : 'delivery';
@@ -159,7 +215,6 @@ const Dashboard = () => {
         [key]: data
       }));
     } catch (error) {
-      console.error(`Error fetching suggestions for ${locationType}:`, error);
       setSuggestions(prev => ({ ...prev, [key]: [] }));
       setError(prev => ({ ...prev, [key]: error.message }));
     }
@@ -214,9 +269,64 @@ const Dashboard = () => {
     }
   };
 
-  const handleSuggestionSelect = (suggestion, locationType) => {
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    if (name.includes('.')) {
+      const [parent, child] = name.split('.');
+      if (parent === 'cargo' && child === 'temperature') {
+        setSelectedBooking(prev => ({
+          ...prev,
+          cargo: {
+            ...prev.cargo,
+            temperature: {
+              ...prev.cargo.temperature,
+              required: e.target.checked
+            }
+          }
+        }));
+      } else if (parent === 'pickupLocation' || parent === 'deliveryLocation') {
+        setSelectedBooking(prev => ({
+          ...prev,
+          [parent]: {
+            ...prev[parent],
+            [child]: value
+          }
+        }));
+        if (child === 'address' && value.length > 2) {
+          fetchSuggestions(value, parent);
+          fetchCoordinates(value, parent, true);
+        } else {
+          setSuggestions(prev => ({ ...prev, [parent === 'pickupLocation' ? 'pickup' : 'delivery']: [] }));
+        }
+      } else {
+        setSelectedBooking(prev => ({
+          ...prev,
+          [parent]: {
+            ...prev[parent],
+            [child]: value
+          }
+        }));
+      }
+    } else {
+      setSelectedBooking(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
+  };
+
+  const handleAssignChange = (e) => {
+    const { name, value } = e.target;
+    setAssignFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSuggestionSelect = (suggestion, locationType, isEditForm = false) => {
     const [parent] = locationType.split('.');
-    setFormData(prev => ({
+    const setData = isEditForm ? setSelectedBooking : setFormData;
+    setData(prev => ({
       ...prev,
       [parent]: {
         ...prev[parent],
@@ -245,9 +355,7 @@ const Dashboard = () => {
       const data = await response.json();
 
       if (response.ok) {
-        const newBooking = data.booking;
-        setBookings(prev => [newBooking, ...prev]);
-        fetchDashboardData();
+        setBookings(prev => [data.booking, ...prev]);
         setShowBookingForm(false);
         setFormData({
           serviceType: 'bulk_transport',
@@ -277,11 +385,75 @@ const Dashboard = () => {
             specialInstructions: ''
           }
         });
+        toast.success('Booking created successfully!');
       } else {
-        alert(data.error || 'Failed to create booking');
+        toast.error(data.error || 'Failed to create booking');
       }
     } catch (error) {
-      alert('Network error. Please try again.');
+      toast.error('Network error. Please try again.');
+    } finally {
+      setFormLoading(false);
+    }
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    setFormLoading(true);
+
+    try {
+      const response = await fetch(`${baseurl}/api/bookings/${selectedBooking._id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(selectedBooking)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setBookings(prev => prev.map(b => b._id === selectedBooking._id ? data.booking : b));
+        setShowEditBookingForm(false);
+        setSelectedBooking(null);
+        toast.success('Booking updated successfully!');
+      } else {
+        toast.error(data.error || 'Failed to update booking');
+      }
+    } catch (error) {
+      toast.error('Network error. Please try again.');
+    } finally {
+      setFormLoading(false);
+    }
+  };
+
+  const handleAssignSubmit = async (e) => {
+    e.preventDefault();
+    setFormLoading(true);
+
+    try {
+      const response = await fetch(`${baseurl}/api/bookings/${selectedBooking._id}/assign`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(assignFormData)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setBookings(prev => prev.map(b => b._id === selectedBooking._id ? data.booking : b));
+        setShowAssignDriverForm(false);
+        setSelectedBooking(null);
+        setAssignFormData({ driverId: '', vehicleId: '' });
+        toast.success('Driver and vehicle assigned successfully!');
+      } else {
+        toast.error(data.error || 'Failed to assign driver');
+      }
+    } catch (error) {
+      toast.error('Network error. Please try again.');
     } finally {
       setFormLoading(false);
     }
@@ -290,7 +462,7 @@ const Dashboard = () => {
   const calculateQuote = async () => {
     try {
       const response = await fetch(
-        `${baseurl}/api/calculate-quote?serviceType=${quoteFormData.serviceType}&vehicleType=${quoteFormData.vehicleType}&cargoQuantity=${parseInt(quoteFormData.cargoDetails.match(/(\d+)/)[1])}&pickupLocation=${quoteFormData.pickupLocation}&deliveryLocation=${quoteFormData.deliveryLocation}`,
+        `${baseurl}/api/calculate-quote?serviceType=${quoteFormData.serviceType}&vehicleType=${quoteFormData.vehicleType}&pickupLocation=${encodeURIComponent(quoteFormData.pickupLocation)}&deliveryLocation=${encodeURIComponent(quoteFormData.deliveryLocation)}&cargoQuantity=${quoteFormData.cargoDetails}`,
         {
           headers: { 'Authorization': `Bearer ${token}` }
         }
@@ -299,8 +471,7 @@ const Dashboard = () => {
       const data = await response.json();
       setQuote(data.quote);
     } catch (error) {
-      console.error('Error calculating quote:', error);
-      alert('Failed to calculate quote. Please try again.');
+      toast.error('Failed to calculate quote. Please try again.');
     }
   };
 
@@ -316,12 +487,11 @@ const Dashboard = () => {
       });
       if (!response.ok) throw new Error('Failed to request quote');
       const data = await response.json();
-      alert(data.message);
+      toast.success(data.message);
       setShowQuoteForm(false);
       setQuote(null);
     } catch (error) {
-      console.error('Error requesting quote:', error);
-      alert('Failed to request quote. Please try again.');
+      toast.error('Failed to request quote. Please try again.');
     }
   };
 
@@ -358,6 +528,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 pt-20">
+      <ToastContainer position="top-right" autoClose={3000} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -380,7 +551,6 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
               <div className="p-3 rounded-full bg-orange-100">
@@ -392,7 +562,6 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
               <div className="p-3 rounded-full bg-green-100">
@@ -404,7 +573,6 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
               <div className="p-3 rounded-full bg-purple-100">
@@ -458,13 +626,7 @@ const Dashboard = () => {
                     <FaPlus className="mr-2" />
                     New Booking
                   </button>
-                  {/* <button
-                    onClick={() => setShowQuoteForm(true)}
-                    className="bg-[#6A1B9A] text-white px-4 py-2 rounded-lg hover:bg-[#5A1A8A] flex items-center"
-                  >
-                    <FaDollarSign className="mr-2" />
-                    Calculate Quote
-                  </button> */}
+              
                 </div>
               </div>
 
@@ -596,10 +758,29 @@ const Dashboard = () => {
                             <FaEye />
                           </button>
                           {booking.status === 'pending' && (
-                            <button className="p-2 text-gray-600 hover:text-[#6A1B9A]">
+                            <button 
+                              onClick={() => {
+                                setSelectedBooking({
+                                  ...booking,
+                                  scheduledPickup: new Date(booking.scheduledPickup).toISOString().slice(0, 16)
+                                });
+                                setShowEditBookingForm(true);
+                              }}
+                              className="p-2 text-gray-600 hover:text-[#6A1B9A]"
+                            >
                               <FaEdit />
                             </button>
                           )}
+                             <button 
+                              onClick={() => {
+                                setSelectedBooking(booking);
+                                setShowAssignDriverForm(true);
+                              }}
+                              className="p-2 text-gray-600 hover:text-[#6A1B9A]"
+                            >
+                              <FaUserCheck />
+                            </button>
+                          
                         </div>
                       </div>
                     </div>
@@ -987,6 +1168,440 @@ const Dashboard = () => {
           </div>
         )}
 
+        {/* Edit Booking Form Modal */}
+        {showEditBookingForm && selectedBooking && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-6 border-b">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-2xl font-bold text-[#6A1B9A]">Edit Booking #{selectedBooking.bookingId}</h2>
+                  <button
+                    onClick={() => {
+                      setShowEditBookingForm(false);
+                      setSelectedBooking(null);
+                    }}
+                    className="text-gray-500 hover:text-gray-700 text-2xl"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+
+              <form onSubmit={handleEditSubmit} className="p-6 space-y-6">
+                {/* Service & Vehicle Type */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <FaTruck className="inline mr-2" />
+                      Service Type
+                    </label>
+                    <select
+                      name="serviceType"
+                      value={selectedBooking.serviceType}
+                      onChange={handleEditChange}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                      required
+                    >
+                      <option value="bulk_transport">Bulk Transport</option>
+                      <option value="cold_chain">Cold Chain</option>
+                      <option value="express_delivery">Express Delivery</option>
+                      <option value="scheduled_pickup">Scheduled Pickup</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Vehicle Type
+                    </label>
+                    <select
+                      name="vehicleType"
+                      value={selectedBooking.vehicleType}
+                      onChange={handleEditChange}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                      required
+                    >
+                      <option value="16ft_truck">16ft Truck</option>
+                      <option value="19ft_truck">19ft Truck</option>
+                      <option value="pickup_truck">Pickup Truck</option>
+                      <option value="refrigerated_truck">Refrigerated Truck</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Pickup Location */}
+                <div className="border rounded-lg p-4">
+                  <h3 className="text-lg font-semibold text-[#6A1B9A] mb-3">
+                    <FaMapMarkerAlt className="inline mr-2" />
+                    Pickup Location
+                  </h3>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <div className="md:col-span-2 relative">
+                      <input
+                        type="text"
+                        name="pickupLocation.address"
+                        placeholder="Pickup Address"
+                        value={selectedBooking.pickupLocation.address}
+                        onChange={handleEditChange}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                        required
+                      />
+                      {suggestions.pickup.length > 0 && (
+                        <ul className="absolute z-10 w-full bg-white border border-gray-300 mt-1 rounded-lg">
+                          {suggestions.pickup.map((suggestion, index) => (
+                            <li
+                              key={index}
+                              className="p-2 hover:bg-gray-100 cursor-pointer"
+                              onClick={() => handleSuggestionSelect(suggestion, 'pickupLocation', true)}
+                            >
+                              {suggestion.display_name}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      {error.pickup && <p className="text-red-500 mt-1">{error.pickup}</p>}
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        name="pickupLocation.contactPerson"
+                        placeholder="Contact Person"
+                        value={selectedBooking.pickupLocation.contactPerson}
+                        onChange={handleEditChange}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                      />
+                    </div>
+                    <div className="md:col-span-3">
+                      <input
+                        type="tel"
+                        name="pickupLocation.contactPhone"
+                        placeholder="Contact Phone"
+                        value={selectedBooking.pickupLocation.contactPhone}
+                        onChange={handleEditChange}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                      />
+                    </div>
+                    {geoLoading.pickup && <p className="text-blue-500">Fetching coordinates...</p>}
+                    {!geoLoading.pickup && selectedBooking.pickupLocation.coordinates.latitude && (
+                      <div className="md:col-span-3">
+                        <p>Latitude: {selectedBooking.pickupLocation.coordinates.latitude}</p>
+                        <p>Longitude: {selectedBooking.pickupLocation.coordinates.longitude}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Delivery Location */}
+                <div className="border rounded-lg p-4">
+                  <h3 className="text-lg font-semibold text-[#6A1B9A] mb-3">
+                    <FaMapMarkerAlt className="inline mr-2" />
+                    Delivery Location
+                  </h3>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <div className="md:col-span-2 relative">
+                      <input
+                        type="text"
+                        name="deliveryLocation.address"
+                        placeholder="Delivery Address"
+                        value={selectedBooking.deliveryLocation.address}
+                        onChange={handleEditChange}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                        required
+                      />
+                      {suggestions.delivery.length > 0 && (
+                        <ul className="absolute z-10 w-full bg-white border border-gray-300 mt-1 rounded-lg">
+                          {suggestions.delivery.map((suggestion, index) => (
+                            <li
+                              key={index}
+                              className="p-2 hover:bg-gray-100 cursor-pointer"
+                              onClick={() => handleSuggestionSelect(suggestion, 'deliveryLocation', true)}
+                            >
+                              {suggestion.display_name}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      {error.delivery && <p className="text-red-500 mt-1">{error.delivery}</p>}
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        name="deliveryLocation.contactPerson"
+                        placeholder="Contact Person"
+                        value={selectedBooking.deliveryLocation.contactPerson}
+                        onChange={handleEditChange}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                      />
+                    </div>
+                    <div className="md:col-span-3">
+                      <input
+                        type="tel"
+                        name="deliveryLocation.contactPhone"
+                        placeholder="Contact Phone"
+                        value={selectedBooking.deliveryLocation.contactPhone}
+                        onChange={handleEditChange}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                      />
+                    </div>
+                    {geoLoading.delivery && <p className="text-blue-500">Fetching coordinates...</p>}
+                    {!geoLoading.delivery && selectedBooking.deliveryLocation.coordinates.latitude && (
+                      <div className="md:col-span-3">
+                        <p>Latitude: {selectedBooking.deliveryLocation.coordinates.latitude}</p>
+                        <p>Longitude: {selectedBooking.deliveryLocation.coordinates.longitude}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Schedule & Cargo */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <FaCalendarAlt className="inline mr-2" />
+                      Scheduled Pickup
+                    </label>
+                    <input
+                      type="datetime-local"
+                      name="scheduledPickup"
+                      value={selectedBooking.scheduledPickup}
+                      onChange={handleEditChange}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Cargo Type
+                    </label>
+                    <select
+                      name="cargo.type"
+                      value={selectedBooking.cargo.type}
+                      onChange={handleEditChange}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                    >
+                      <option value="milk">Milk</option>
+                      <option value="dairy_products">Dairy Products</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Quantity */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Quantity
+                    </label>
+                    <input
+                      type="number"
+                      name="cargo.quantity"
+                      placeholder="Enter quantity"
+                      value={selectedBooking.cargo.quantity}
+                      onChange={handleEditChange}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Unit
+                    </label>
+                    <select
+                      name="cargo.unit"
+                      value={selectedBooking.cargo.unit}
+                      onChange={handleEditChange}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                    >
+                      <option value="liters">Liters</option>
+                      <option value="kg">Kilograms</option>
+                      <option value="tons">Tons</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Temperature Control */}
+                <div className="border rounded-lg p-4">
+                  <div className="flex items-center mb-3">
+                    <input
+                      type="checkbox"
+                      name="cargo.temperature"
+                      checked={selectedBooking.cargo.temperature.required}
+                      onChange={handleEditChange}
+                      className="mr-2"
+                    />
+                    <label className="text-lg font-semibold text-[#6A1B9A]">
+                      <FaThermometerHalf className="inline mr-2" />
+                      Temperature Control Required
+                    </label>
+                  </div>
+
+                  {selectedBooking.cargo.temperature.required && (
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <input
+                          type="number"
+                          name="cargo.temperature.min"
+                          placeholder="Min Temperature (°C)"
+                          value={selectedBooking.cargo.temperature.min}
+                          onChange={(e) => setSelectedBooking(prev => ({
+                            ...prev,
+                            cargo: {
+                              ...prev.cargo,
+                              temperature: { ...prev.cargo.temperature, min: e.target.value }
+                            }
+                          }))}
+                          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                        />
+                      </div>
+                      <div>
+                        <input
+                          type="number"
+                          name="cargo.temperature.max"
+                          placeholder="Max Temperature (°C)"
+                          value={selectedBooking.cargo.temperature.max}
+                          onChange={(e) => setSelectedBooking(prev => ({
+                            ...prev,
+                            cargo: {
+                              ...prev.cargo,
+                              temperature: { ...prev.cargo.temperature, max: e.target.value }
+                            }
+                          }))}
+                          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Special Instructions */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Special Instructions
+                  </label>
+                  <textarea
+                    name="cargo.specialInstructions"
+                    placeholder="Any special handling requirements..."
+                    value={selectedBooking.cargo.specialInstructions}
+                    onChange={handleEditChange}
+                    rows="3"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <div className="flex justify-end space-x-4 pt-4 border-t">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowEditBookingForm(false);
+                      setSelectedBooking(null);
+                    }}
+                    className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={formLoading}
+                    className="px-6 py-3 bg-[#6A1B9A] text-white rounded-lg hover:bg-[#5A1A8A] disabled:opacity-50"
+                  >
+                    {formLoading ? 'Updating...' : 'Update Booking'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* Assign Driver Form Modal */}
+        {showAssignDriverForm && selectedBooking && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg max-w-md w-full">
+              <div className="p-6 border-b">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-2xl font-bold text-[#6A1B9A]">Assign Driver for #{selectedBooking.bookingId}</h2>
+                  <button
+                    onClick={() => {
+                      setShowAssignDriverForm(false);
+                      setSelectedBooking(null);
+                      setAssignFormData({ driverId: '', vehicleId: '' });
+                    }}
+                    className="text-gray-500 hover:text-gray-700 text-2xl"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+
+              <form onSubmit={handleAssignSubmit} className="p-6 space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <FaUserCheck className="inline mr-2" />
+                    Select Driver
+                  </label>
+                  <select
+                    name="driverId"
+                    value={assignFormData.driverId}
+                    onChange={handleAssignChange}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                    required
+                  >
+                    <option value="">Select a driver</option>
+                    {drivers.map(driver => (
+                      <option key={driver._id} value={driver._id}>
+                        {driver.name} ({driver.email})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <FaTruck className="inline mr-2" />
+                    Select Vehicle
+                  </label>
+                  <select
+                    name="vehicleId"
+                    value={assignFormData.vehicleId}
+                    onChange={handleAssignChange}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#6A1B9A]"
+                    required
+                  >
+                    <option value="">Select a vehicle</option>
+                    {vehicles.map(vehicle => (
+                      <option key={vehicle._id} value={vehicle._id}>
+                        {vehicle.type} ({vehicle.licensePlate})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex justify-end space-x-4 pt-4 border-t">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowAssignDriverForm(false);
+                      setSelectedBooking(null);
+                      setAssignFormData({ driverId: '', vehicleId: '' });
+                    }}
+                    className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={formLoading}
+                    className="px-6 py-3 bg-[#6A1B9A] text-white rounded-lg hover:bg-[#5A1A8A] disabled:opacity-50"
+                  >
+                    {formLoading ? 'Assigning...' : 'Assign Driver'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
         {/* Quote Form Modal */}
         {showQuoteForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -1073,7 +1688,9 @@ const Dashboard = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Vehicle Type</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Vehicle Type
+                    </label>
                     <select
                       name="vehicleType"
                       value={quoteFormData.vehicleType}
@@ -1181,13 +1798,8 @@ const Dashboard = () => {
                     <h3 className="text-lg font-semibold text-[#6A1B9A] mb-2">Quote Summary</h3>
                     <p><strong>Total Amount:</strong> ₹{quote.totalAmount.toLocaleString()}</p>
                     <p><strong>Base Rate:</strong> ₹{quote.baseRate.toLocaleString()}</p>
-                    <p><strong>Vehicle Rate:</strong> ₹{quote.vehicleRate.toLocaleString()}</p>
                     <p><strong>Distance Rate:</strong> ₹{quote.distanceRate.toLocaleString()}</p>
-                    <p><strong>Cargo Rate:</strong> ₹{quote.cargoRate.toLocaleString()}</p>
-                    <p><strong>Fuel Surcharge:</strong> ₹{quote.fuelSurcharge.toLocaleString()}</p>
-                    <p><strong>Insurance:</strong> ₹{quote.insurance.toLocaleString()}</p>
-                    <p><strong>Tax (18%):</strong> ₹{quote.tax.toLocaleString()}</p>
-                    <p><strong>Subtotal:</strong> ₹{quote.subtotal.toLocaleString()}</p>
+                    <p><strong>Temperature Control Rate:</strong> ₹{quote.temperatureControlRate}</p>
                     <p><small>Valid until: {new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' })}</small></p>
                   </div>
                 )}

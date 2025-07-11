@@ -42,6 +42,28 @@ export const createBooking = async (req, res) => {
   }
 };
 
+export const updateBooking = async (req, res) => {
+  try {
+    const booking = await Booking.findById(req.params.id);
+
+    if (!booking) {
+      return res.status(404).json({ error: 'Booking not found' });
+    }
+
+    // Only allow updates if the user is the owner or an admin/manager
+    if (booking.customer.toString() !== req.user.id && req.user.role !== 'admin' && req.user.role !== 'manager') {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+
+    Object.assign(booking, req.body);
+    await booking.save();
+
+    res.json({ success: true, booking });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export const getBookings = async (req, res) => {
   try {
     const { status, page = 1, limit = 10 } = req.query;
@@ -141,6 +163,7 @@ export const updateBookingStatus = async (req, res) => {
 export const assignDriver = async (req, res) => {
   try {
     const { driverId, vehicleId } = req.body;
+    console.log('Assigning driver:', driverId, 'to booking:', req.params.id);
     const booking = await Booking.findById(req.params.id);
 
     if (!booking) {
@@ -151,19 +174,19 @@ export const assignDriver = async (req, res) => {
     const driver = await User.findById(driverId);
     const vehicle = await Vehicle.findById(vehicleId);
 
-    if (!driver || driver.role !== 'driver') {
-      return res.status(400).json({ error: 'Invalid driver' });
-    }
+    // if (!driver || driver.role !== 'driver') {
+    //   return res.status(400).json({ error: 'Invalid driver' });
+    // }
 
-    if (!vehicle || vehicle.status !== 'available') {
-      return res.status(400).json({ error: 'Vehicle not available' });
-    }
+    // if (!vehicle || vehicle.status !== 'available') {
+    //   return res.status(400).json({ error: 'Vehicle not available' });
+    // }
 
-    booking.driver = driverId;
-    booking.vehicle = vehicleId;
-    booking.status = 'assigned';
+    // booking.driver = driverId;
+    // booking.vehicle = vehicleId;
+    // booking.status = 'assigned';
 
-    vehicle.status = 'in_use';
+    // vehicle.status = 'in_use';
     await vehicle.save();
     await booking.save();
 

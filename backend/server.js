@@ -17,6 +17,7 @@ import authRoutes from './routes/auth.js';
 import bookingRoutes from './routes/bookings.js';
 import vehicleRoutes from './routes/vehicles.js';
 import quoteRoutes from './routes/quoteRoutes.js';
+import driversRoutes from './routes/driver.js';
 
 // Initialize Express app
 const app = express();
@@ -91,6 +92,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/vehicles', vehicleRoutes);
 app.use('/api', quoteRoutes);
+app.use('/api/drivers', driversRoutes);
 
 // Contact form endpoint
 app.post("/api/contact", async (req, res) => {

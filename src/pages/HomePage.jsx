@@ -299,7 +299,7 @@ const HomePage = () => {
                   placeholder="Your Name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="p-3 w-full mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00] bg-gray-100"
+                  className="p-3 w-full text-black mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00] bg-gray-100"
                   required
                   readOnly
                 />
@@ -309,7 +309,7 @@ const HomePage = () => {
                   placeholder="Your Email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="p-3 w-full mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00] bg-gray-100"
+                  className="p-3 w-full text-black mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00] bg-gray-100"
                   required
                   readOnly
                 />
@@ -319,7 +319,7 @@ const HomePage = () => {
                   placeholder="Your Phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="p-3 w-full mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
+                  className="p-3 w-full text-black mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
                   required
                 />
                 <input
@@ -328,13 +328,13 @@ const HomePage = () => {
                   placeholder="Company Name (Optional)"
                   value={formData.companyName}
                   onChange={handleChange}
-                  className="p-3 w-full mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
+                  className="p-3 w-full text-black mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
                 />
                 <select
                   name="serviceType"
                   value={formData.serviceType}
                   onChange={handleChange}
-                  className="p-3 w-full mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
+                  className="p-3 w-full text-black mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
                   required
                 >
                   <option value="bulk_transport">Bulk Transport</option>
@@ -348,7 +348,7 @@ const HomePage = () => {
                   placeholder="Pickup Location"
                   value={formData.pickupLocation}
                   onChange={handleChange}
-                  className="p-3 w-full mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
+                  className="p-3 w-full text-black mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
                   required
                 />
                 <input
@@ -357,7 +357,7 @@ const HomePage = () => {
                   placeholder="Delivery Location"
                   value={formData.deliveryLocation}
                   onChange={handleChange}
-                  className="p-3 w-full mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
+                  className="p-3 w-full text-black mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
                   required
                 />
                 <input
@@ -366,7 +366,7 @@ const HomePage = () => {
                   placeholder="Cargo Details (e.g., 1000 liters of milk)"
                   value={formData.cargoDetails}
                   onChange={handleChange}
-                  className="p-3 w-full mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
+                  className="p-3 w-full text-black mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
                   required
                 />
                 <input
@@ -374,14 +374,14 @@ const HomePage = () => {
                   name="scheduledDate"
                   value={formData.scheduledDate}
                   onChange={handleChange}
-                  className="p-3 w-full mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
+                  className="p-3 w-full text-black mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
                   required
                 />
                 <select
                   name="vehicleType"
                   value={formData.vehicleType}
                   onChange={handleChange}
-                  className="p-3 w-full mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
+                  className="p-3 w-full text-black mb-4 border rounded-lg focus:ring-2 focus:ring-[#F57C00]"
                   required
                 >
                   <option value="16ft_truck">16ft Truck</option>
@@ -393,7 +393,7 @@ const HomePage = () => {
                   <button
                     type="button"
                     onClick={() => setShowQuotationForm(false)}
-                    className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                    className="px-4 text-black py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
                     disabled={loading}
                   >
                     Cancel

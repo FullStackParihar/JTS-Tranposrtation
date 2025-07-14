@@ -492,7 +492,7 @@ const AdminDashboard = () => {
                       <td className="p-3 border">
                         {truck.image ? (
                           <img
-                            src={`${baseurl}${truck.image}`}
+                            src={truck.image}
                             alt="truck"
                             className="w-16 h-12 object-cover rounded"
                           />
